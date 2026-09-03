@@ -1,0 +1,73 @@
+[
+  { "keywords": ["dior", "sauvage"],                    "brand": "Dior",           "size": "100 ml", "marketPrice": 10500, "category": "Perfumes" },
+  { "keywords": ["chanel", "bleu"],                    "brand": "Chanel",         "size": "100 ml", "marketPrice": 11800, "category": "Perfumes" },
+  { "keywords": ["versace", "eros"],                   "brand": "Versace",        "size": "100 ml", "marketPrice": 7200, "category": "Perfumes" },
+  { "keywords": ["armani", "acqua", "gio"],           "brand": "Armani",         "size": "100 ml", "marketPrice": 9500, "category": "Perfumes" },
+  { "keywords": ["gucci", "guilty"],                   "brand": "Gucci",          "size": "90 ml",  "marketPrice": 7800, "category": "Perfumes" },
+  { "keywords": ["calvin", "klein", "ck one"],        "brand": "Calvin Klein",   "size": "200 ml", "marketPrice": 5200, "category": "Perfumes" },
+  { "keywords": ["tom ford", "black orchid"],          "brand": "Tom Ford",       "size": "50 ml",  "marketPrice": 11500, "category": "Perfumes" },
+  { "keywords": ["prada", "l'homme"],                 "brand": "Prada",          "size": "100 ml", "marketPrice": 9800, "category": "Perfumes" },
+  { "keywords": ["dior", "miss dior"],                "brand": "Dior",           "size": "100 ml", "marketPrice": 11200, "category": "Perfumes" },
+  { "keywords": ["chanel", "coco mademoiselle"],      "brand": "Chanel",         "size": "100 ml", "marketPrice": 12500, "category": "Perfumes" },
+  { "keywords": ["ysl", "libre"],                     "brand": "Yves Saint Laurent", "size": "90 ml", "marketPrice": 10500, "category": "Perfumes" },
+  { "keywords": ["ysl", "y eau"],                     "brand": "Yves Saint Laurent", "size": "100 ml", "marketPrice": 9800, "category": "Perfumes" },
+  { "keywords": ["hugo boss", "bottled"],             "brand": "Hugo Boss",      "size": "100 ml", "marketPrice": 6500, "category": "Perfumes" },
+  { "keywords": ["bvlgari", "man"],                   "brand": "Bvlgari",        "size": "100 ml", "marketPrice": 9200, "category": "Perfumes" },
+  { "keywords": ["burberry", "her"],                  "brand": "Burberry",       "size": "100 ml", "marketPrice": 8500, "category": "Perfumes" },
+
+  { "keywords": ["toblerone", "milk"],       "brand": "Toblerone",      "size": "360 g",  "marketPrice": 700, "category": "Chocolates" },
+  { "keywords": ["toblerone", "dark"],       "brand": "Toblerone",      "size": "360 g",  "marketPrice": 720, "category": "Chocolates" },
+  { "keywords": ["lindt", "lindor"],         "brand": "Lindt",           "size": "500 g",  "marketPrice": 1900, "category": "Chocolates" },
+  { "keywords": ["ferrero", "rocher"],       "brand": "Ferrero",         "size": "375 g",  "marketPrice": 1150, "category": "Chocolates" },
+  { "keywords": ["m&m"],                      "brand": "M&M's",            "size": "400 g",  "marketPrice": 780, "category": "Chocolates" },
+  { "keywords": ["ghirardelli"],             "brand": "Ghirardelli",      "size": "450 g",  "marketPrice": 1200, "category": "Chocolates" },
+  { "keywords": ["cadbury", "dairy milk"],   "brand": "Cadbury",          "size": "400 g",  "marketPrice": 850, "category": "Chocolates" },
+  { "keywords": ["lindt", "excellence"],     "brand": "Lindt",             "size": "100 g",  "marketPrice": 450, "category": "Chocolates" },
+  { "keywords": ["ferrero", "collection"],   "brand": "Ferrero",           "size": "269 g",  "marketPrice": 1350, "category": "Chocolates" },
+  { "keywords": ["milka"],                    "brand": "Milka",             "size": "100 g",  "marketPrice": 300, "category": "Chocolates" },
+  { "keywords": ["hershey", "kisses"],       "brand": "Hershey's",         "size": "150 g",  "marketPrice": 450, "category": "Chocolates" },
+  { "keywords": ["kitkat", "chunky"],        "brand": "KitKat",            "size": "200 g",  "marketPrice": 350, "category": "Chocolates" },
+
+  { "keywords": ["johnnie", "black"],        "brand": "Johnnie Walker", "size": "1 L",    "marketPrice": 4200, "category": "Liquor" },
+  { "keywords": ["chivas", "12"],            "brand": "Chivas",         "size": "1 L",    "marketPrice": 4800, "category": "Liquor" },
+  { "keywords": ["glenfiddich", "12"],       "brand": "Glenfiddich",    "size": "1 L",    "marketPrice": 6500, "category": "Liquor" },
+  { "keywords": ["jack daniel"],             "brand": "Jack Daniel's",  "size": "1 L",    "marketPrice": 3900, "category": "Liquor" },
+  { "keywords": ["absolut"],                 "brand": "Absolut",        "size": "1 L",    "marketPrice": 2600, "category": "Liquor" },
+  { "keywords": ["hennessy", "vs"],          "brand": "Hennessy",       "size": "1 L",    "marketPrice": 8900, "category": "Liquor" },
+
+  { "keywords": ["cetaphil", "moisturizer"], "brand": "Cetaphil",       "size": "500 ml", "marketPrice": 1450, "category": "Cosmetics" },
+  { "keywords": ["neutrogena", "sunscreen"], "brand": "Neutrogena",     "size": "85 ml",  "marketPrice": 650, "category": "Cosmetics" },
+  { "keywords": ["clinique", "lotion"],      "brand": "Clinique",       "size": "200 ml", "marketPrice": 2200, "category": "Cosmetics" },
+  { "keywords": ["maybelline", "mascara"],   "brand": "Maybelline",     "size": "10.7 ml","marketPrice": 450, "category": "Cosmetics" },
+  { "keywords": ["dove", "deodorant"],       "brand": "Dove",           "size": "150 ml", "marketPrice": 280, "category": "Cosmetics" },
+  { "keywords": ["the ordinary", "niacinamide"], "brand": "The Ordinary", "size": "30 ml", "marketPrice": 750, "category": "Cosmetics" },
+  { "keywords": ["l'oreal", "serum"],        "brand": "L'Oreal",        "size": "30 ml", "marketPrice": 950, "category": "Cosmetics" },
+  { "keywords": ["mac", "lipstick"],         "brand": "MAC",             "size": "3 g",   "marketPrice": 2200, "category": "Cosmetics" },
+  { "keywords": ["nyx", "lip"],              "brand": "NYX",             "size": "1 unit", "marketPrice": 850, "category": "Cosmetics" },
+  { "keywords": ["lancome", "serum"],        "brand": "Lancome",         "size": "30 ml", "marketPrice": 6500, "category": "Cosmetics" },
+
+  { "keywords": ["sony", "wh-1000"],         "brand": "Sony",           "size": "1 unit", "marketPrice": 25000, "category": "Electronics" },
+  { "keywords": ["apple", "airpods"],        "brand": "Apple",          "size": "1 pair", "marketPrice": 18900, "category": "Electronics" },
+  { "keywords": ["samsung", "buds"],         "brand": "Samsung",        "size": "1 pair", "marketPrice": 8999, "category": "Electronics" },
+  { "keywords": ["jbl", "headphones"],       "brand": "JBL",             "size": "1 unit", "marketPrice": 4500, "category": "Electronics" },
+  { "keywords": ["bose", "quietcomfort"],    "brand": "Bose",            "size": "1 unit", "marketPrice": 26500, "category": "Electronics" },
+  { "keywords": ["apple", "watch"],           "brand": "Apple",           "size": "1 unit", "marketPrice": 34900, "category": "Electronics" },
+  { "keywords": ["kindle"],                    "brand": "Amazon",          "size": "1 unit", "marketPrice": 10999, "category": "Electronics" },
+  { "keywords": ["marshall", "speaker"],      "brand": "Marshall",        "size": "1 unit", "marketPrice": 29900, "category": "Electronics" },
+
+  { "keywords": ["fossil", "watch"],         "brand": "Fossil",         "size": "1 unit", "marketPrice": 8500, "category": "Accessories" },
+  { "keywords": ["ralph lauren", "belt"],    "brand": "Ralph Lauren",   "size": "1 unit", "marketPrice": 5500, "category": "Accessories" },
+  { "keywords": ["calvin klein", "bag"],     "brand": "Calvin Klein",   "size": "1 unit", "marketPrice": 4200, "category": "Accessories" },
+  { "keywords": ["ray-ban", "sunglasses"],    "brand": "Ray-Ban",         "size": "1 unit", "marketPrice": 9500, "category": "Accessories" },
+  { "keywords": ["michael kors", "watch"],   "brand": "Michael Kors",    "size": "1 unit", "marketPrice": 16500, "category": "Accessories" },
+  { "keywords": ["coach", "bag"],             "brand": "Coach",            "size": "1 unit", "marketPrice": 24500, "category": "Accessories" },
+  { "keywords": ["samsonite", "luggage"],     "brand": "Samsonite",        "size": "1 unit", "marketPrice": 12000, "category": "Accessories" },
+
+  { "keywords": ["red bull", "energy"],      "brand": "Red Bull",       "size": "250 ml", "marketPrice": 150, "category": "Beverages" },
+  { "keywords": ["heinz", "ketchup"],        "brand": "Heinz",          "size": "397 g",  "marketPrice": 280, "category": "Beverages" }
+  ,{ "keywords": ["starbucks", "coffee"],    "brand": "Starbucks",      "size": "200 g",  "marketPrice": 850, "category": "Beverages" }
+  ,{ "keywords": ["nescafe", "gold"],        "brand": "Nescafe",         "size": "200 g",  "marketPrice": 900, "category": "Beverages" }
+  ,{ "keywords": ["lipton", "tea"],          "brand": "Lipton",           "size": "100 bags", "marketPrice": 450, "category": "Beverages" }
+  ,{ "keywords": ["monster", "energy"],      "brand": "Monster",          "size": "500 ml", "marketPrice": 180, "category": "Beverages" }
+  ,{ "keywords": ["coca-cola", "zero"],      "brand": "Coca-Cola",        "size": "6 x 330 ml", "marketPrice": 350, "category": "Beverages" }
+]

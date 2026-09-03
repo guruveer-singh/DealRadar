@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DealRadar — Duty Free vs Market</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- Header -->
+    <header class="hero">
+      <h1>Deal<span>Radar</span> ✈️</h1>
+      <p>Is it actually cheaper at Delhi Duty Free? Find the real deals.</p>
+      <p id="updated" class="updated"></p>
+
+      <div class="stat">
+        <div>
+          <b id="count">0</b>
+          <small>products shown</small>
+        </div>
+        <div>
+          <b id="totalSave">₹0</b>
+          <small>total you'd save</small>
+        </div>
+        <div>
+          <b id="bestDeal">—</b>
+          <small>best deal right now</small>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search + sort -->
+    <div class="controls">
+      <input id="search" type="text" placeholder="Search a product or brand… e.g. Dior, whiskey" />
+      <select id="sort">
+        <option value="score">Sort: Best deal</option>
+        <option value="savings">Sort: Most ₹ saved</option>
+        <option value="price">Sort: Lowest price</option>
+      </select>
+    </div>
+
+    <!-- Category chips (filled in by app.js) -->
+    <div id="categories" class="categories"></div>
+
+    <!-- Product cards (filled in by app.js) -->
+    <main id="grid" class="grid"></main>
+
+    <footer>
+      V1 · Sample data for demo. Prices are illustrative, not live.
+    </footer>
+  </div>
+
+  <!-- Load data first, then the app logic -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
