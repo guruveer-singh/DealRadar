@@ -66,6 +66,12 @@ let sortMode = "score"; // "score" | "savings" | "price"
 function cardHTML(p) {
   const tier = scoreTier(p.dealScore);
   const hot = p.dealScore >= HOT_SCORE;
+  const savingsLabel = p.savings >= 0
+    ? `Save ${rupees(p.savings)} (${Math.round(p.savingsPct)}%)`
+    : `${rupees(-p.savings)} more than market`;
+  const sourceLink = p.marketSourceUrl
+    ? `<a href="${p.marketSourceUrl}" target="_blank" rel="noreferrer">View source</a>`
+    : "Reference price";
 
   // price direction arrow (only shows if the collector saved a previous price)
   let changeHTML = "";
@@ -91,7 +97,7 @@ function cardHTML(p) {
           <span class="price__value">${rupees(p.dutyFree)}</span>
         </div>
         <div class="price price--mkt">
-          <span class="price__label">Market</span>
+          <span class="price__label">Market reference</span>
           <span class="price__value strike">${rupees(p.market)}</span>
         </div>
       </div>
@@ -102,8 +108,12 @@ function cardHTML(p) {
       </div>
 
       <div class="card__foot">
-        <span class="save">Save ${rupees(p.savings)} (${Math.round(p.savingsPct)}%)</span>
+        <span class="save ${p.savings < 0 ? "save--negative" : ""}">${savingsLabel}</span>
         <span class="tier tier--${tier.cls}">${tier.label}</span>
+      </div>
+      <div class="card__source">
+        <span>${p.marketSource || "Market reference"}</span>
+        ${sourceLink}
       </div>
       ${changeHTML}
     </article>

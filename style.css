@@ -180,10 +180,23 @@ body {
   font-size: 13px;
 }
 .save { color: var(--text); font-weight: 600; }
+.save--negative { color: #ef4444; }
 .tier { font-size: 12px; }
 .tier--great { color: var(--great); }
 .tier--good  { color: var(--good); }
 .tier--okay  { color: var(--okay); }
+
+.card__source {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+.card__source span { overflow-wrap: anywhere; }
+.card__source a { color: var(--accent); white-space: nowrap; }
 
 .empty { color: var(--muted); grid-column: 1 / -1; text-align: center; padding: 40px; }
 
