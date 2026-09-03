@@ -1,0 +1,46 @@
+name: Update DealRadar prices
+
+on:
+  schedule:
+    # Every day at 06:00 UTC (11:30 AM India Standard Time).
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-dealradar-prices
+  cancel-in-progress: false
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Refresh live prices
+        working-directory: collector
+        run: node collector.js
+
+      - name: Commit generated data
+        run: |
+          if git diff --quiet -- data.js; then
+            echo "No generated data changes to commit."
+            exit 0
+          fi
+
+          git config user.name "${{ vars.CONTRIBUTION_NAME || github.actor }}"
+          git config user.email "${{ secrets.CONTRIBUTION_EMAIL || '41898282+github-actions[bot]@users.noreply.github.com' }}"
+          git add data.js
+          git commit -m "chore: update DealRadar prices"
+          git push origin main

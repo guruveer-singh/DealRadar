@@ -10,6 +10,7 @@ This folder explains the project for a complete beginner. Read the files in this
 6. `06_COMMANDS.md` - commands to run, test, and inspect the project.
 7. `07_TROUBLESHOOTING.md` - common errors and what they mean.
 8. `08_SAFE_NEXT_STEPS.md` - improvements to make after understanding the current code.
+9. `.github/workflows/update-prices.yml` - daily GitHub Actions automation.
 
 ## Important truth about the current data
 
@@ -18,6 +19,10 @@ This folder explains the project for a complete beginner. Read the files in this
 - Liquor prices in `collector/liquor-mrp-fetcher.js` are manually recorded Delhi baseline values and need verification against the latest official excise document.
 - Most non-liquor catalog prices in `collector/market-prices.json` are reference values. They are not automatically verified by the collector.
 - `data.js` is generated output. Do not edit it by hand; run the collector instead.
+
+## Daily GitHub update
+
+The repository workflow runs every day at 06:00 UTC and can also be started manually. It runs the collector and commits regenerated `data.js`. To make those commits count on your personal contribution graph, add a repository secret named `CONTRIBUTION_EMAIL` containing the verified email associated with your GitHub account. The optional repository variable `CONTRIBUTION_NAME` controls the author name.
 
 ## Current learning path
 

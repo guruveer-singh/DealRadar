@@ -85,3 +85,15 @@ Get-Content ".\data.js" -TotalCount 35
 ```
 
 Never edit generated output to permanently change a product. Change the source catalog or collector code and regenerate it.
+
+## Enable daily GitHub updates
+
+The workflow file is `.github/workflows/update-prices.yml`.
+
+1. On GitHub, open `Settings` -> `Secrets and variables` -> `Actions`.
+2. Add a repository secret named `CONTRIBUTION_EMAIL`.
+3. Set its value to the verified email connected to your GitHub account. Do not put the email in source code.
+4. Optionally add a repository variable named `CONTRIBUTION_NAME`.
+5. Open the `Actions` tab, select `Update DealRadar prices`, and choose `Run workflow`.
+
+The scheduled run is daily at 06:00 UTC, which is 11:30 AM India Standard Time. The workflow needs repository Actions write permission to push `data.js`.

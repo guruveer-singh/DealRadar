@@ -8,7 +8,7 @@ Work through these in order:
 4. Add a small test suite for keyword matching, savings calculations, and malformed source responses.
 5. Add pagination if you need more than the first 50 DDF products per category.
 6. Add a cache so one blocked source does not erase previously known good market prices.
-7. Add a GitHub Actions workflow only after source permissions, secrets, and rate limits are documented.
+7. Review the GitHub Actions workflow after source permissions, secrets, and rate limits are documented.
 8. Update the root README and footer, which still contain older V1/sample-data wording.
 
 ## Best first coding exercise
