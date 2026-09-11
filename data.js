@@ -4,6 +4,7 @@
 // Data Sources:
 // - Duty Free Prices: Delhi Duty Free official GraphQL API (live, updated daily)
 // - Market Prices: Delhi Excise Board (liquor MRP), Amazon.in, local retail
+<<<<<<< HEAD
 // - Last Updated: 2026-09-11T18:07:42.703Z
 
 const LAST_UPDATED = "2026-09-11T18:07:42.703Z";
@@ -13,7 +14,11 @@ const DATA_ATTRIBUTION = {
   market: "Official MRP / Retail Aggregators",
   liquor: "Delhi Excise Board",
   amazon: "Amazon.in Public Prices",
+<<<<<<< HEAD
   lastUpdated: "2026-09-11T18:07:42.703Z"
+=======
+  lastUpdated: "2026-09-11T10:26:29.895Z"
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
 };
 
 const PRODUCTS = [
@@ -75,11 +80,20 @@ const PRODUCTS = [
     "size": "100 ml",
     "dutyFree": 9700,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:41.937Z",
     "market": 10500,
     "marketSource": "Nykaa / Shoppers Stop",
     "marketSourceUrl": "https://www.nykaa.com/search/result/?q=Hugo+Boss+Bottled+Beyond",
     "emoji": "🧴",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.890Z",
+    "market": 6500,
+    "marketSource": "Local Retail / Amazon.in",
+    "marketSourceUrl": null,
+    "marketLastVerified": null,
+    "emoji": "🛍️",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "previousDutyFree": null,
     "isExclusive": false,
     "needsVerification": false,
@@ -125,11 +139,20 @@ const PRODUCTS = [
     "size": "50 ml",
     "dutyFree": 7200,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:41.939Z",
     "market": 5250,
     "marketSource": "Nykaa / Shoppers Stop",
     "marketSourceUrl": "https://www.nykaa.com/search/result/?q=Hugo+Boss+Bottled+Beyond",
     "emoji": "🧴",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.890Z",
+    "market": 6500,
+    "marketSource": "Local Retail / Amazon.in",
+    "marketSourceUrl": null,
+    "marketLastVerified": null,
+    "emoji": "🛍️",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "previousDutyFree": null,
     "isExclusive": false,
     "needsVerification": false,
@@ -142,11 +165,20 @@ const PRODUCTS = [
     "size": "50 ml",
     "dutyFree": 7200,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:41.939Z",
     "market": 5250,
     "marketSource": "Nykaa / Shoppers Stop",
     "marketSourceUrl": "https://www.nykaa.com/search/result/?q=Hugo+Boss+Bottled+Beyond",
     "emoji": "🧴",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.890Z",
+    "market": 6500,
+    "marketSource": "Local Retail / Amazon.in",
+    "marketSourceUrl": null,
+    "marketLastVerified": null,
+    "emoji": "🛍️",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "previousDutyFree": null,
     "isExclusive": false,
     "needsVerification": false,
@@ -3988,10 +4020,18 @@ const PRODUCTS = [
     "size": "100 ml",
     "dutyFree": 14400,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.010Z",
     "market": 19500,
     "marketSource": "Sephora India / Nykaa",
     "marketSourceUrl": "https://sephora.nnnow.com/search?q=Tom+Ford+Black+Orchid+100ml",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.891Z",
+    "market": 11500,
+    "marketSource": "Local Retail / Amazon.in",
+    "marketSourceUrl": null,
+    "marketLastVerified": null,
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "emoji": "🧴",
     "previousDutyFree": null,
     "isExclusive": false,
@@ -7609,11 +7649,20 @@ const PRODUCTS = [
     "size": "507 g",
     "dutyFree": 2270,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.078Z",
     "market": 608,
     "marketSource": "Amazon India / Blinkit",
     "marketSourceUrl": "https://www.amazon.in/s?k=Hershey+Kisses+Milk+Chocolate+150g",
     "emoji": "🍫",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.892Z",
+    "market": 450,
+    "marketSource": "Local Retail / Amazon.in",
+    "marketSourceUrl": null,
+    "marketLastVerified": null,
+    "emoji": "🛍️",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "previousDutyFree": null,
     "isExclusive": false,
     "needsVerification": false,
@@ -7626,6 +7675,7 @@ const PRODUCTS = [
     "size": "460 g",
     "dutyFree": 1940,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.078Z",
     "market": null,
     "marketSource": null,
@@ -9358,6 +9408,13 @@ const PRODUCTS = [
     "market": 4500,
     "marketSource": "Delhi Retail MRP",
     "marketSourceUrl": null,
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.893Z",
+    "market": 8900,
+    "marketSource": "Delhi Excise Board",
+    "marketSourceUrl": "https://delhi.gov.in/service/excise",
+    "marketLastVerified": "2026-09-01",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "emoji": "🥃",
     "previousDutyFree": null,
     "isExclusive": false,
@@ -10260,9 +10317,15 @@ const PRODUCTS = [
     "size": "1 L",
     "dutyFree": 3770,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.160Z",
     "market": 4200,
     "marketSource": "Delhi Excise Department",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.893Z",
+    "market": 3900,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🥃",
     "previousDutyFree": null,
@@ -10277,9 +10340,15 @@ const PRODUCTS = [
     "size": "700 ml",
     "dutyFree": 22370,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.161Z",
     "market": 6800,
     "marketSource": "Delhi Retail MRP",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.893Z",
+    "market": 2600,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🥃",
     "previousDutyFree": null,
@@ -10379,7 +10448,11 @@ const PRODUCTS = [
     "size": "1 L",
     "dutyFree": 3700,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.164Z",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.893Z",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "market": 3900,
     "marketSource": "Delhi Excise Department",
     "marketSourceUrl": null,
@@ -10396,9 +10469,15 @@ const PRODUCTS = [
     "size": "1 L",
     "dutyFree": 9160,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.165Z",
     "market": 9000,
     "marketSource": "Delhi Retail MRP",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.893Z",
+    "market": 2200,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🥃",
     "previousDutyFree": null,
@@ -10413,9 +10492,15 @@ const PRODUCTS = [
     "size": "1 L",
     "dutyFree": 5290,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.168Z",
     "market": null,
     "marketSource": null,
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.893Z",
+    "market": 2200,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🥃",
     "previousDutyFree": null,
@@ -10429,9 +10514,15 @@ const PRODUCTS = [
     "size": "1 L",
     "dutyFree": 4990,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.168Z",
     "market": 4900,
     "marketSource": "Delhi Retail MRP",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.893Z",
+    "market": 6500,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🥃",
     "previousDutyFree": null,
@@ -10440,15 +10531,58 @@ const PRODUCTS = [
     "url": "https://www.delhidutyfree.co.in/gentleman-jack.html"
   },
   {
+<<<<<<< HEAD
     "name": "Azzaro Forever Wanted Absolu Men's Eau de Parfum With Vanilla and Whiskey Accord 100 ml",
     "brand": "Azzaro",
+=======
+    "name": "Toblerone Milk Gold",
+    "brand": "Toblerone",
+    "category": "Confectionery",
+    "size": "360 g",
+    "dutyFree": 3040,
+    "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.894Z",
+    "market": 700,
+    "marketSource": "Local Retail / Amazon.in",
+    "marketSourceUrl": null,
+    "marketLastVerified": null,
+    "emoji": "🛍️",
+    "previousDutyFree": null,
+    "url": "https://www.delhidutyfree.co.in/toblerone-milk-gold.html"
+  },
+  {
+    "name": "Absolut Tabasco Flavoured Vodka ",
+    "brand": "Absolut",
+    "category": "Liquor",
+    "size": "1 L",
+    "dutyFree": 2630,
+    "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.894Z",
+    "market": 2600,
+    "marketSource": "Local Retail / Amazon.in",
+    "marketSourceUrl": null,
+    "marketLastVerified": null,
+    "emoji": "🥃",
+    "previousDutyFree": null,
+    "url": "https://www.delhidutyfree.co.in/absolut-tabasco-flavoured-vodka.html"
+  },
+  {
+    "name": "Bvlgari Man Wood Essence",
+    "brand": "Bvlgari",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "category": "Perfumes",
     "size": "100 ml",
     "dutyFree": 10640,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.168Z",
     "market": null,
     "marketSource": null,
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.894Z",
+    "market": 9200,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🧴",
     "previousDutyFree": null,
@@ -10530,9 +10664,15 @@ const PRODUCTS = [
     "size": "70 CL",
     "dutyFree": 4900,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.172Z",
     "market": 4900,
     "marketSource": "Delhi Retail MRP",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.894Z",
+    "market": 1900,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🥃",
     "previousDutyFree": null,
@@ -11107,7 +11247,11 @@ const PRODUCTS = [
     "size": "1 L",
     "dutyFree": 2420,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.197Z",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.894Z",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "market": 2600,
     "marketSource": "Delhi Excise Department",
     "marketSourceUrl": null,
@@ -11801,9 +11945,15 @@ const PRODUCTS = [
     "size": "1 L",
     "dutyFree": 7090,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.239Z",
     "market": 6500,
     "marketSource": "Delhi Retail MRP",
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.894Z",
+    "market": 850,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🥃",
     "previousDutyFree": null,
@@ -12247,9 +12397,15 @@ const PRODUCTS = [
     "size": "1 unit",
     "dutyFree": 2240,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.283Z",
     "market": null,
     "marketSource": null,
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.894Z",
+    "market": 700,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🍫",
     "previousDutyFree": null,
@@ -19738,9 +19894,15 @@ const PRODUCTS = [
     "size": "300 G",
     "dutyFree": 2240,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.647Z",
     "market": null,
     "marketSource": null,
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.894Z",
+    "market": 720,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🍫",
     "previousDutyFree": null,
@@ -19754,9 +19916,15 @@ const PRODUCTS = [
     "size": "330 g",
     "dutyFree": 3130,
     "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
+<<<<<<< HEAD
     "dutyFreeLastUpdated": "2026-09-11T18:07:42.648Z",
     "market": null,
     "marketSource": null,
+=======
+    "dutyFreeLastUpdated": "2026-09-11T10:26:29.895Z",
+    "market": 850,
+    "marketSource": "Local Retail / Amazon.in",
+>>>>>>> c180fbf96662ebf6a08e7f6b5d56dd1468a1769a
     "marketSourceUrl": null,
     "emoji": "🍫",
     "previousDutyFree": null,
