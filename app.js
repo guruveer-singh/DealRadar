@@ -47,6 +47,9 @@ function withStats(p) {
 let ALL = [];
 
 const HOT_SCORE = 85;
+const PAGE_SIZE = 24;
+let currentPage = 1;
+let filteredList = [];
 
 // ---- 4. Give each score a colour + label ----
 function scoreTier(score) {
@@ -152,7 +155,7 @@ function cardHTML(p) {
   `;
 }
 
-// ---- 7. Apply search + category + sort, then draw ----
+// ---- 7. Apply search + category + sort, then draw the current page ----
 function render() {
   let list = ALL.slice();
 
@@ -174,7 +177,17 @@ function render() {
   if (sortMode === "savings") list.sort((a, b) => b.savings - a.savings);
   if (sortMode === "price")   list.sort((a, b) => a.dutyFree - b.dutyFree);
 
-  // draw the cards
+  filteredList = list;
+
+  // clamp the page in case a filter shrank the list under our feet
+  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+
+  // draw the cards for this page only
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageItems = list.slice(start, start + PAGE_SIZE);
+
   const grid = document.getElementById("grid");
   if (list.length === 0) {
     grid.innerHTML = `
@@ -183,10 +196,13 @@ function render() {
         <button class="chip" onclick="clearSearch()">Clear search</button>
       </div>`;
   } else {
-    grid.innerHTML = list.map(cardHTML).join("");
+    grid.innerHTML = pageItems.map(cardHTML).join("");
   }
 
-  // update headline stats
+  renderRange(list.length, start, pageItems.length);
+  buildPager(totalPages);
+
+  // headline stats describe the whole filtered set, not just this page
   const totalSave = list.reduce((sum, p) => sum + (p.hasMarket ? Math.max(0, p.savings) : 0), 0);
   const best = list.length ? list.reduce((a, b) => (b.dealScore > a.dealScore ? b : a)) : null;
   document.getElementById("count").textContent = list.length;
@@ -194,9 +210,83 @@ function render() {
   document.getElementById("bestDeal").textContent = best ? best.name : "—";
 }
 
+// ---- 7b. "Showing 1–24 of 384 products, page 1 of 16" ----
+function renderRange(total, start, shown) {
+  const el = document.getElementById("showrange");
+  if (!el) return;
+  if (total === 0) { el.textContent = ""; return; }
+  const last = start + shown;
+  el.textContent = `Showing ${start + 1}–${last} of ${total.toLocaleString("en-IN")} products`;
+}
+
+// ---- 7c. Numbered pager with a window around the current page ----
+function pageNumbers(totalPages, current) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+  const first = 1;
+  const last = totalPages;
+  const from = Math.max(first + 1, current - 1);
+  const to = Math.min(last - 1, current + 1);
+  const out = [first];
+  if (from > first + 1) out.push("…");
+  for (let i = from; i <= to; i++) out.push(i);
+  if (to < last - 1) out.push("…");
+  out.push(last);
+  return out;
+}
+
+function buildPager(totalPages) {
+  const el = document.getElementById("pager");
+  if (!el) return;
+
+  if (totalPages <= 1) { el.innerHTML = ""; return; }
+
+  const arrow = (label, page, aria, disabled) =>
+    `<button class="page__arrow" data-page="${page}" aria-label="${aria}"${disabled ? " disabled" : ""}>${label}</button>`;
+
+  const parts = [
+    arrow("‹", currentPage - 1, "Previous page", currentPage === 1),
+    ...pageNumbers(totalPages, currentPage).map(n =>
+      n === "…"
+        ? `<span class="page__gap" aria-hidden="true">…</span>`
+        : `<button class="page__num" data-page="${n}"${n === currentPage ? ' aria-current="page"' : ""} aria-label="Page ${n} of ${totalPages}">${n}</button>`
+    ),
+    arrow("›", currentPage + 1, "Next page", currentPage === totalPages),
+  ];
+
+  el.innerHTML = parts.join("");
+}
+
+function gotoPage(n) {
+  const totalPages = Math.max(1, Math.ceil(filteredList.length / PAGE_SIZE));
+  const target = Math.min(Math.max(1, n), totalPages);
+  if (target === currentPage) return;
+  currentPage = target;
+  render();
+  scrollToControls();
+}
+
+// Put the first row of results back under the sticky toolbar.
+function scrollToControls() {
+  const toolbar = document.getElementById("toolbar");
+  if (!toolbar) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const gridTop = window.scrollY + document.getElementById("grid").getBoundingClientRect().top;
+  const top = Math.max(0, gridTop - toolbar.offsetHeight - 24);
+  window.scrollTo({ top, behavior: reduce ? "auto" : "smooth" });
+}
+
+document.getElementById("pager").addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-page]");
+  if (!btn || btn.disabled) return;
+  gotoPage(Number(btn.dataset.page));
+});
+
 function clearSearch() {
   searchText = "";
   document.getElementById("search").value = "";
+  currentPage = 1;
   render();
 }
 

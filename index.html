@@ -41,13 +41,18 @@
           <div class="stat__item stat__item--wide"><span class="stat__icon">✦</span><div><b id="bestDeal">—</b><small>best-priced deal right now</small></div></div>
         </div>
 
-        <div class="controls" role="search">
-          <label class="search-field" for="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search a brand or product" autocomplete="off" /></label>
-          <label class="sort-field" for="sort"><span>Sort by</span><select id="sort"><option value="score">Best deal</option><option value="savings">Most ₹ saved</option><option value="price">Lowest price</option></select></label>
+        <div id="toolbar" class="toolbar">
+          <div class="controls" role="search">
+            <label class="search-field" for="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search a brand or product" autocomplete="off" /></label>
+            <label class="sort-field" for="sort"><span>Sort by</span><select id="sort"><option value="score">Best deal</option><option value="savings">Most ₹ saved</option><option value="price">Lowest price</option></select></label>
+          </div>
+
+          <div class="filter-row"><p>Browse by category</p><div id="categories" class="categories" aria-label="Product categories"></div></div>
         </div>
 
-        <div class="filter-row"><p>Browse by category</p><div id="categories" class="categories" aria-label="Product categories"></div></div>
-        <div id="grid" class="grid" aria-live="polite"></div>
+        <p id="showrange" class="showrange" aria-live="polite"></p>
+        <div id="grid" class="grid"></div>
+        <nav id="pager" class="pager" aria-label="Product pages"></nav>
       </section>
 
       <section class="how-it-works" aria-labelledby="how-it-works-title">

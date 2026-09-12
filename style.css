@@ -2,7 +2,63 @@
 * { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; }
 body { min-width:320px; background:var(--paper); color:var(--ink); font-family:"DM Sans",Arial,sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased; }
-button,input,select { font:inherit; } button,select { cursor:pointer; } a { color:inherit; }.site-shell { overflow:hidden; }
+button,input,select { font:inherit; } button,select { cursor:pointer; } a { color:inherit; }/* overflow:hidden here would create a scroll container and break the sticky
+   toolbar/hero blobs, so clip the decorative overflow without one. */
+.site-shell { overflow:clip; }
+@supports not (overflow:clip) { .site-shell { overflow:hidden; } }
+
+/* Sticky toolbar */
+#toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: start;
+}
+
+/* Pagination */
+.pager {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+  gap: 6px;
+}
+.pager button {
+  min-width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: 600 12px "DM Mono", monospace;
+  cursor: pointer;
+}
+.pager button:hover {
+  border-color: var(--pine);
+  color: var(--pine);
+}
+.pager button[aria-current="page"] {
+  border-color: var(--pine);
+  color: #fff;
+  background: var(--pine);
+}
+.pager button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Show range */
+.showrange {
+  text-align: center;
+  margin: 12px 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
 
 /* Navigation and introduction */
 .nav { width:min(1180px,calc(100% - 48px)); min-height:82px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
