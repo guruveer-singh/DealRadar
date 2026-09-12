@@ -20,9 +20,12 @@ date: 2026-09-03
 
 ```
 GET https://www.delhidutyfree.co.in/graphql
-→ Fetches 257+ perfumes, 447+ chocolates, 1,532+ spirits
+→ Fetches products across perfumes, liquor, chocolates, cosmetics, accessories
 → Real prices with currency
 ```
+
+Counts are deliberately not written down here — they change with every daily
+run. The site's category chips show the live figure.
 
 ---
 
@@ -38,7 +41,7 @@ collector/amazon-scraper.js
 ├─ Search for each product on Amazon.in
 ├─ Extract MRP (printed price) + current selling price
 ├─ Store both (MRP is "market price", selling price is "discounted")
-├─ Use Playwright to avoid API blocks
+├─ Built-in fetch — no browser automation (see note below)
 └─ Run daily with 2s delay between requests
 ```
 
@@ -127,7 +130,7 @@ Each product in `data.js` should include:
 - [x] Define data attribution format
 
 ### Phase 2: Amazon Scraper ⚠️
-- [ ] Install Playwright: `npm install playwright`
+- [x] ~~Install Playwright~~ — dropped; nothing in the active code imports it
 - [ ] Test amazon-scraper.js against amazon.in
 - [ ] Handle rate limiting + timeouts
 - [ ] Expand product list beyond current 6

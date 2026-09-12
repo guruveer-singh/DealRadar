@@ -1,8 +1,6 @@
 # DealRadar ✈️ — Delhi Duty Free Price Comparison
 
 [![GitHub Actions Workflow](https://github.com/guruveer-singh/DealRadar/actions/workflows/update-prices.yml/badge.svg)](https://github.com/guruveer-singh/DealRadar/actions/workflows/update-prices.yml)
-[![Last Updated](https://img.shields.io/badge/Updated-September%2011%2C%2026-brightgreen)](https://github.com/guruveer-singh/DealRadar)
-[![Products](https://img.shields.io/badge/Products-1%2C266-blue)](https://github.com/guruveer-singh/DealRadar)
 
 A real-time price comparison tool that helps travelers decide: **"Is this really cheaper at Delhi Duty Free, or should I buy it locally?"**
 
@@ -32,23 +30,26 @@ cd DealRadar
 # Open index.html in your browser
 ```
 
-## 📊 Current Data Status
+## 📊 Data Status
 
-- **Total Products:** 1,266
-- **Market Price Matches:** 447 (35%)
-- **Duty Free Exclusives:** 819 (65%)
-- **Last Updated:** September 11, 2026, 6:07 PM IST
+Counts change on every run, so they are deliberately not duplicated here — a
+number written into a README is stale within a day. Instead:
+
+- The **site header** shows when the prices were last refreshed.
+- The **Actions badge** above shows whether the latest scheduled run succeeded.
+- The **category chips** on the site show a live count per category.
+
 - **Update Frequency:** Daily (automated, early morning UTC)
 
 ### Categories
 
-| Category | Products | Examples |
-|----------|----------|----------|
-| **Perfumes** | 257+ | Dior, Chanel, Tom Ford, Armani |
-| **Liquor** | 337+ | Johnnie Walker, Macallan, Chivas |
-| **Chocolates** | 446+ | Lindt, Toblerone, Ferrero |
-| **Cosmetics** | 95+ | Clinique, Lancome, Estee Lauder |
-| **Accessories** | 62+ | GC Watches, Ray Ban |
+| Category | Examples |
+|----------|----------|
+| **Perfumes** | Dior, Chanel, Tom Ford, Armani |
+| **Liquor** | Johnnie Walker, Macallan, Chivas |
+| **Chocolates** | Lindt, Toblerone, Ferrero |
+| **Cosmetics** | Clinique, Lancome, Estee Lauder |
+| **Accessories** | GC Watches, Ray Ban |
 
 > **Catalog scope:** perfumes, liquor, chocolates, cosmetics and accessories.
 > Electronics and beverages are deliberately out of scope and excluded by the
@@ -134,7 +135,7 @@ node collector.js
 ```
 
 The collector will:
-- Fetch latest Delhi Duty Free prices (~5-10 minutes)
+- Fetch latest Delhi Duty Free prices (about a minute)
 - Match against market prices
 - Update `data.js` with fresh data
 - Display summary of products fetched
@@ -144,12 +145,12 @@ The collector will:
 ### Current Features (V2)
 
 - ✅ **Live price tracking** from Delhi Duty Free API
-- ✅ **1,266 products** across 5 categories
+- ✅ **Five categories** — perfumes, liquor, chocolates, cosmetics, accessories
 - ✅ **Deal Score** with visual indicators
 - ✅ **Search & filter** by brand, category, name
 - ✅ **Sort options** (best deal, savings, price, name)
 - ✅ **Daily automated updates** via GitHub Actions
-- ✅ **Market price matching** for 447 products
+- ✅ **Market price matching** wherever a reliable baseline exists
 - ✅ **Price change tracking** (previous vs current)
 - ✅ **Data source attribution** for transparency
 
@@ -181,7 +182,7 @@ All prices include source attribution:
 {
   "dutyFreeSource": "Delhi Duty Free Official Website (GraphQL API)",
   "marketSource": "Amazon.in / Delhi Excise Board",
-  "lastUpdated": "2026-09-11T18:07:42.703Z"
+  "dutyFreeLastUpdated": "2026-09-12T12:29:53.783Z"
 }
 ```
 
@@ -222,5 +223,3 @@ MIT License — use freely for personal or commercial projects.
 ---
 
 **Built with ❤️ for travelers who want to shop smarter at Delhi Duty Free**
-
-*Last updated: September 11, 2026*
