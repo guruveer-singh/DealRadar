@@ -1,22 +1,12 @@
 @echo off
-REM Daily local refresh for DealRadar.
-REM Pulls the cloud-generated data first, regenerates it, and pushes if changed.
+REM Daily local sync for DealRadar.
+REM
+REM Deliberately does NOT run the collector or push: the GitHub Action owns
+REM data.js. If both your PC and the cloud job regenerated and pushed it, the
+REM two generated files would conflict and produce a corrupted merge.
+REM Pulling only keeps your local copy identical to what the live site serves.
 cd /d "D:\DutyFreeProject\DutyFreeProject old sample user"
 
 git pull --rebase
 
-node collector\collector.js
-if errorlevel 1 (
-  echo Collector failed - data.js was not refreshed, nothing committed.
-  exit /b 1
-)
-
-git add data.js
-git diff --cached --quiet
-if %errorlevel%==0 (
-  echo No data changes to commit.
-  exit /b 0
-)
-
-git commit -m "chore: local price refresh"
-git push origin main
+echo Local copy synced. Open index.html to see the latest prices.
