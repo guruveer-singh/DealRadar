@@ -100,15 +100,6 @@ const CATEGORIES = [
   { name: "Cosmetics", search: "L'Occitane" },
   { name: "Cosmetics", search: "Ordinary" },
 
-  // Electronics
-  { name: "Electronics", search: "Headphones" },
-  { name: "Electronics", search: "Earbuds" },
-  { name: "Electronics", search: "Speaker" },
-  { name: "Electronics", search: "Bose" },
-  { name: "Electronics", search: "Sony" },
-  { name: "Electronics", search: "JBL" },
-  { name: "Electronics", search: "Apple" },
-
   // Accessories & Watches
   { name: "Accessories", search: "Watch" },
   { name: "Accessories", search: "Sunglasses" },
@@ -118,11 +109,6 @@ const CATEGORIES = [
   { name: "Accessories", search: "Ray Ban" },
   { name: "Accessories", search: "Fossil" },
   { name: "Accessories", search: "Tissot" },
-
-  // Beverages
-  { name: "Beverages", search: "Coffee" },
-  { name: "Beverages", search: "Tea" },
-  { name: "Beverages", search: "Beverage" },
 ];
 
 function productQuery(searchTerm) {
@@ -227,6 +213,11 @@ function normalizeCategory(category, productName = "") {
 
   return category || "Other";
 }
+
+// Out of scope for this tracker. normalizeCategory still classifies these (so
+// they are detected reliably however they were found) and the build loop below
+// drops every matching product — including ones another search turned up.
+const EXCLUDED_CATEGORIES = new Set(["Electronics", "Beverages"]);
 
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -349,7 +340,7 @@ function findMarketEntry(productName, productCategory, marketList) {
   // 3. Single-word dedicated brand match ONLY for Accessories / Watches
   const brandMatch = eligible.find((m) => {
     const brand = (m.brand || "").toLowerCase().trim();
-    if (m.category !== "Accessories" && m.category !== "Electronics") return false;
+    if (m.category !== "Accessories") return false;
     if (brand.length < 4 || GENERIC_MATCH_WORDS.has(brand)) return false;
     if (MULTI_PRODUCT_BRANDS.has(brand)) return false;
     if (isTravelRetailBundleMismatch(productName, m)) return false;
@@ -470,10 +461,8 @@ async function main() {
     Whiskey: "🥃",
     Liquor: "🥃",
     Cosmetics: "💄",
-    Electronics: "🎧",
     Accessories: "⌚",
-    Watches: "⌚",
-    Beverages: "🥤"
+    Watches: "⌚"
   };
 
 const KNOWN_BRANDS = [
@@ -526,10 +515,16 @@ function extractBrand(productName) {
 
   const products = [];
   let matchedCount = 0;
+  let excludedCount = 0;
 
   for (const item of collected) {
-    const market = findMarketEntry(item.name, item.category, enhancedMarketList);
     const finalCategory = normalizeCategory(item.category, item.name);
+    if (EXCLUDED_CATEGORIES.has(finalCategory)) {
+      excludedCount++;
+      continue;
+    }
+
+    const market = findMarketEntry(item.name, item.category, enhancedMarketList);
     const isTitleExclusive = /\b(travel\s+retail\s+exclusive|duty\s+free\s+exclusive|exclusive)\b/i.test(item.name);
 
     if (market) {
@@ -579,6 +574,9 @@ function extractBrand(productName) {
     }
   }
 
+  if (excludedCount) {
+    console.log(`\n🗑  Dropped ${excludedCount} out-of-scope products (${[...EXCLUDED_CATEGORIES].join(", ")})`);
+  }
   console.log(`\n✅ Matched ${matchedCount} of ${collected.length} scraped products to market prices. Included all ${products.length} scraped products in catalog.`);
 
   const now = new Date().toISOString();

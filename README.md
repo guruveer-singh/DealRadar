@@ -49,7 +49,10 @@ cd DealRadar
 | **Chocolates** | 446+ | Lindt, Toblerone, Ferrero |
 | **Cosmetics** | 95+ | Clinique, Lancome, Estee Lauder |
 | **Accessories** | 62+ | GC Watches, Ray Ban |
-| **Beverages** | 131+ | Coffee, Tea collections |
+
+> **Catalog scope:** perfumes, liquor, chocolates, cosmetics and accessories.
+> Electronics and beverages are deliberately out of scope and excluded by the
+> collector — see `EXCLUDED_CATEGORIES` in `collector/collector.js`.
 
 ## 🔧 How It Works
 
@@ -141,7 +144,7 @@ The collector will:
 ### Current Features (V2)
 
 - ✅ **Live price tracking** from Delhi Duty Free API
-- ✅ **1,266 products** across 6 categories
+- ✅ **1,266 products** across 5 categories
 - ✅ **Deal Score** with visual indicators
 - ✅ **Search & filter** by brand, category, name
 - ✅ **Sort options** (best deal, savings, price, name)
