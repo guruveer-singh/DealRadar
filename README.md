@@ -38,7 +38,7 @@ cd DealRadar
 - **Market Price Matches:** 447 (35%)
 - **Duty Free Exclusives:** 819 (65%)
 - **Last Updated:** September 11, 2026, 6:07 PM IST
-- **Update Frequency:** Daily at 11:30 AM IST (automated)
+- **Update Frequency:** Daily (automated, early morning UTC)
 
 ### Categories
 
@@ -65,16 +65,31 @@ The project uses a Node.js collector (`collector/collector.js`) that:
 
 ### Automated Updates
 
-GitHub Actions workflow runs daily at 06:00 UTC (11:30 AM IST):
+GitHub Actions workflow is scheduled daily via:
 
 ```yaml
 schedule:
-  - cron: "0 6 * * *"  # Daily at 06:00 UTC
+  - cron: "0 6 * * *"  # 06:00 UTC
 ```
 
 - ✅ Automatically fetches latest prices
-- ✅ Commits updated data to repository
-- ✅ 100% success rate (9/9 runs successful)
+- ✅ Commits refreshed `data.js` to the repository
+- ℹ️ GitHub may delay scheduled runs under load, so the commit typically lands
+  a few hours after 06:00 UTC rather than exactly on time.
+
+### Deployment (Netlify)
+
+The daily data commit is wired to reach the live site automatically:
+
+- `netlify.toml` builds a `dist/` directory containing only the four static
+  files the site needs (`index.html`, `app.js`, `style.css`, `data.js`).
+- `build-site.js` performs that copy.
+- Link the Netlify site to this repository (*Site configuration → Build &
+  deploy → Link repository*, branch `main`). Once linked, every commit —
+  including the daily automated one — triggers a production deploy.
+
+No build-time dependencies are required: the collector uses Node's built-in
+`fetch`.
 
 ### Deal Score Formula
 
@@ -147,7 +162,7 @@ The collector will:
 ## 🛠️ Tech Stack
 
 - **Frontend:** Vanilla JavaScript, CSS3, HTML5
-- **Data Collection:** Node.js, Playwright (for scraping)
+- **Data Collection:** Node.js (built-in `fetch`)
 - **API:** Delhi Duty Free GraphQL API
 - **Automation:** GitHub Actions
 - **Data Sources:**

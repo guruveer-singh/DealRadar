@@ -13,6 +13,7 @@
 
 // ---- 1. Money helper: format 8500 -> "₹8,500" (Indian style) ----
 function rupees(n) {
+  if (typeof n !== "number" || isNaN(n)) return "—";
   return "₹" + n.toLocaleString("en-IN");
 }
 
@@ -30,31 +31,28 @@ function timeAgo(isoString) {
 }
 
 // ---- 3. Add calculated fields to every product ----
-// savings      = how many ₹ you save
-// savingsPct   = savings as a % of the market price
-// dealScore    = 0..100 score. 40% savings or more = a perfect 100.
 function withStats(p) {
-  const savings = p.market - p.dutyFree;
-  const savingsPct = (savings / p.market) * 100;
-  const dealScore = Math.min(100, Math.round(savingsPct * 2.5));
+  const hasMarket = Number(p.market) > 0;
+  const savings = hasMarket ? p.market - p.dutyFree : 0;
+  const savingsPct = hasMarket ? (savings / p.market) * 100 : 0;
+  const dealScore = hasMarket
+    ? Math.min(100, Math.max(0, Math.round(savingsPct * 2.5)))
+    : (p.isExclusive ? 95 : 60);
 
-  // priceChange: if the collector recorded what the price was last time,
-  // we can show whether it went up or down. (0 / undefined = no change info)
   const priceChange = p.previousDutyFree ? p.dutyFree - p.previousDutyFree : 0;
 
-  return { ...p, savings, savingsPct, dealScore, priceChange };
+  return { ...p, savings, savingsPct, dealScore, priceChange, hasMarket };
 }
 
-const ALL = PRODUCTS.map(withStats);
+let ALL = [];
 
-// The score above which a card gets the 🔥 "top deal" ribbon
 const HOT_SCORE = 85;
 
 // ---- 4. Give each score a colour + label ----
 function scoreTier(score) {
   if (score >= 80) return { label: "Great deal", cls: "great" };
   if (score >= 60) return { label: "Good deal",  cls: "good" };
-  return { label: "Okay", cls: "okay" };
+  return { label: "Standard", cls: "okay" };
 }
 
 // ---- 5. Current state of the filters ----
@@ -65,15 +63,36 @@ let sortMode = "score"; // "score" | "savings" | "price"
 // ---- 6. Build one product card as HTML ----
 function cardHTML(p) {
   const tier = scoreTier(p.dealScore);
-  const hot = p.dealScore >= HOT_SCORE;
-  const savingsLabel = p.savings >= 0
-    ? `Save ${rupees(p.savings)} (${Math.round(p.savingsPct)}%)`
-    : `${rupees(-p.savings)} more than market`;
+  const isExclusive = Boolean(p.isExclusive);
+  const hot = p.hasMarket && p.dealScore >= HOT_SCORE;
+  const safeSavingsPct = Math.max(0, p.savingsPct);
+
+  let savingsLabel = "";
+  if (isExclusive) {
+    savingsLabel = `Airport Exclusive · Save ${rupees(p.savings)}`;
+  } else if (p.hasMarket) {
+    savingsLabel = p.savings >= 0
+      ? `Save ${rupees(p.savings)} (${Math.round(p.savingsPct)}%)`
+      : `${rupees(-p.savings)} more than market`;
+  } else {
+    savingsLabel = `Delhi Duty Free Live Price`;
+  }
+
   const sourceLink = p.marketSourceUrl
     ? `<a href="${p.marketSourceUrl}" target="_blank" rel="noreferrer">View source</a>`
-    : "Reference price";
+    : p.hasMarket ? "Reference price" : "Live Store Listing";
 
-  // price direction arrow (only shows if the collector saved a previous price)
+  const productLink = p.url
+    ? `<a class="card__link" href="${p.url}" target="_blank" rel="noreferrer">Check at Delhi Duty Free <span aria-hidden="true">↗</span></a>`
+    : "";
+
+  let ribbonHTML = "";
+  if (isExclusive) {
+    ribbonHTML = `<div class="ribbon ribbon--exclusive">✈️ EXCLUSIVE</div>`;
+  } else if (hot) {
+    ribbonHTML = `<div class="ribbon">🔥 TOP DEAL</div>`;
+  }
+
   let changeHTML = "";
   if (p.priceChange < 0) {
     changeHTML = `<span class="change change--down">▼ ${rupees(-p.priceChange)} cheaper than last check</span>`;
@@ -81,41 +100,54 @@ function cardHTML(p) {
     changeHTML = `<span class="change change--up">▲ ${rupees(p.priceChange)} costlier than last check</span>`;
   }
 
+  const marketPriceHTML = p.hasMarket
+    ? `<div class="price price--mkt">
+         <span class="price__label">Market reference</span>
+         <span class="price__value strike">${rupees(p.market)}</span>
+       </div>`
+    : `<div class="price price--mkt">
+         <span class="price__label">Catalogue</span>
+         <span class="price__value">Live Airport</span>
+       </div>`;
+
+  const barHTML = p.hasMarket
+    ? `<div class="bar" title="${Math.round(p.savingsPct)}% cheaper than market">
+         <div class="bar__fill bar__fill--${tier.cls}" style="width:${Math.min(100, safeSavingsPct * 2.5)}%"></div>
+       </div>`
+    : `<div class="bar" title="Duty Free Official Listing">
+         <div class="bar__fill" style="width:100%; background:#d5eee2;"></div>
+       </div>`;
+
   return `
-    <article class="card ${hot ? "card--hot" : ""}">
-      ${hot ? `<div class="ribbon">🔥 TOP DEAL</div>` : ""}
+    <article class="card ${isExclusive ? "card--hot" : hot ? "card--hot" : ""}">
+      ${ribbonHTML}
       <div class="card__top">
         <span class="card__emoji">${p.emoji}</span>
-        <span class="badge badge--${tier.cls}" title="Deal Score">${p.dealScore}</span>
+        <span class="badge badge--${tier.cls}" title="Deal Score">${p.hasMarket ? p.dealScore : "Live"}</span>
       </div>
       <h3 class="card__name">${p.name}</h3>
-      <p class="card__meta">${p.brand} · ${p.size}</p>
+      <p class="card__meta">${p.brand ? p.brand + ' · ' : ''}${p.size || '1 unit'}</p>
 
       <div class="prices">
         <div class="price price--df">
           <span class="price__label">Duty Free</span>
           <span class="price__value">${rupees(p.dutyFree)}</span>
         </div>
-        <div class="price price--mkt">
-          <span class="price__label">Market reference</span>
-          <span class="price__value strike">${rupees(p.market)}</span>
-        </div>
+        ${marketPriceHTML}
       </div>
 
-      <!-- savings bar: fills up according to savings % -->
-      <div class="bar" title="${Math.round(p.savingsPct)}% cheaper than market">
-        <div class="bar__fill bar__fill--${tier.cls}" style="width:${Math.min(100, p.savingsPct * 2.5)}%"></div>
-      </div>
+      ${barHTML}
 
       <div class="card__foot">
-        <span class="save ${p.savings < 0 ? "save--negative" : ""}">${savingsLabel}</span>
-        <span class="tier tier--${tier.cls}">${tier.label}</span>
+        <span class="save ${p.hasMarket && p.savings < 0 ? "save--negative" : ""}">${savingsLabel}</span>
+        <span class="tier tier--${tier.cls}">${p.hasMarket ? tier.label : "Available"}</span>
       </div>
       <div class="card__source">
-        <span>${p.marketSource || "Market reference"}</span>
+        <span>${p.marketSource || "Delhi Duty Free Live Catalog"}</span>
         ${sourceLink}
       </div>
       ${changeHTML}
+      ${productLink}
     </article>
   `;
 }
@@ -133,7 +165,7 @@ function render() {
   if (searchText.trim() !== "") {
     const q = searchText.toLowerCase();
     list = list.filter(p =>
-      p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)
+      p.name.toLowerCase().includes(q) || (p.brand && p.brand.toLowerCase().includes(q))
     );
   }
 
@@ -147,7 +179,7 @@ function render() {
   if (list.length === 0) {
     grid.innerHTML = `
       <div class="empty">
-        <p>😕 Nothing matches “${searchText}”.</p>
+        <p>😕 Nothing matches "${searchText}".</p>
         <button class="chip" onclick="clearSearch()">Clear search</button>
       </div>`;
   } else {
@@ -155,14 +187,13 @@ function render() {
   }
 
   // update headline stats
-  const totalSave = list.reduce((sum, p) => sum + p.savings, 0);
+  const totalSave = list.reduce((sum, p) => sum + (p.hasMarket ? Math.max(0, p.savings) : 0), 0);
   const best = list.length ? list.reduce((a, b) => (b.dealScore > a.dealScore ? b : a)) : null;
   document.getElementById("count").textContent = list.length;
   document.getElementById("totalSave").textContent = rupees(totalSave);
   document.getElementById("bestDeal").textContent = best ? best.name : "—";
 }
 
-// used by the empty-state button
 function clearSearch() {
   searchText = "";
   document.getElementById("search").value = "";
@@ -183,7 +214,7 @@ function buildCategoryButtons() {
   wrap.querySelectorAll(".chip").forEach(btn => {
     btn.addEventListener("click", () => {
       activeCategory = btn.dataset.cat;
-      buildCategoryButtons(); // re-draw so the active one highlights
+      buildCategoryButtons();
       render();
     });
   });
@@ -210,6 +241,19 @@ document.getElementById("sort").addEventListener("change", (e) => {
 });
 
 // ---- 11. Go! ----
-buildCategoryButtons();
-showFreshness();
-render();
+function initDealRadar() {
+  ALL = Array.isArray(PRODUCTS) ? PRODUCTS.map(withStats) : [];
+  buildCategoryButtons();
+  showFreshness();
+  render();
+}
+
+// Wait for data.js to load
+if (typeof PRODUCTS !== "undefined") {
+  initDealRadar();
+} else {
+  // Fallback if data.js loads after app.js
+  window.addEventListener("load", initDealRadar);
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();

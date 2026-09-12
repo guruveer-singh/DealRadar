@@ -1,73 +1,1402 @@
 [
-  { "keywords": ["dior", "sauvage"],                    "brand": "Dior",           "size": "100 ml", "marketPrice": 10500, "category": "Perfumes" },
-  { "keywords": ["chanel", "bleu"],                    "brand": "Chanel",         "size": "100 ml", "marketPrice": 11800, "category": "Perfumes" },
-  { "keywords": ["versace", "eros"],                   "brand": "Versace",        "size": "100 ml", "marketPrice": 7200, "category": "Perfumes" },
-  { "keywords": ["armani", "acqua", "gio"],           "brand": "Armani",         "size": "100 ml", "marketPrice": 9500, "category": "Perfumes" },
-  { "keywords": ["gucci", "guilty"],                   "brand": "Gucci",          "size": "90 ml",  "marketPrice": 7800, "category": "Perfumes" },
-  { "keywords": ["calvin", "klein", "ck one"],        "brand": "Calvin Klein",   "size": "200 ml", "marketPrice": 5200, "category": "Perfumes" },
-  { "keywords": ["tom ford", "black orchid"],          "brand": "Tom Ford",       "size": "50 ml",  "marketPrice": 11500, "category": "Perfumes" },
-  { "keywords": ["prada", "l'homme"],                 "brand": "Prada",          "size": "100 ml", "marketPrice": 9800, "category": "Perfumes" },
-  { "keywords": ["dior", "miss dior"],                "brand": "Dior",           "size": "100 ml", "marketPrice": 11200, "category": "Perfumes" },
-  { "keywords": ["chanel", "coco mademoiselle"],      "brand": "Chanel",         "size": "100 ml", "marketPrice": 12500, "category": "Perfumes" },
-  { "keywords": ["ysl", "libre"],                     "brand": "Yves Saint Laurent", "size": "90 ml", "marketPrice": 10500, "category": "Perfumes" },
-  { "keywords": ["ysl", "y eau"],                     "brand": "Yves Saint Laurent", "size": "100 ml", "marketPrice": 9800, "category": "Perfumes" },
-  { "keywords": ["hugo boss", "bottled"],             "brand": "Hugo Boss",      "size": "100 ml", "marketPrice": 6500, "category": "Perfumes" },
-  { "keywords": ["bvlgari", "man"],                   "brand": "Bvlgari",        "size": "100 ml", "marketPrice": 9200, "category": "Perfumes" },
-  { "keywords": ["burberry", "her"],                  "brand": "Burberry",       "size": "100 ml", "marketPrice": 8500, "category": "Perfumes" },
-
-  { "keywords": ["toblerone", "milk"],       "brand": "Toblerone",      "size": "360 g",  "marketPrice": 700, "category": "Chocolates" },
-  { "keywords": ["toblerone", "dark"],       "brand": "Toblerone",      "size": "360 g",  "marketPrice": 720, "category": "Chocolates" },
-  { "keywords": ["lindt", "lindor"],         "brand": "Lindt",           "size": "500 g",  "marketPrice": 1900, "category": "Chocolates" },
-  { "keywords": ["ferrero", "rocher"],       "brand": "Ferrero",         "size": "375 g",  "marketPrice": 1150, "category": "Chocolates" },
-  { "keywords": ["m&m"],                      "brand": "M&M's",            "size": "400 g",  "marketPrice": 780, "category": "Chocolates" },
-  { "keywords": ["ghirardelli"],             "brand": "Ghirardelli",      "size": "450 g",  "marketPrice": 1200, "category": "Chocolates" },
-  { "keywords": ["cadbury", "dairy milk"],   "brand": "Cadbury",          "size": "400 g",  "marketPrice": 850, "category": "Chocolates" },
-  { "keywords": ["lindt", "excellence"],     "brand": "Lindt",             "size": "100 g",  "marketPrice": 450, "category": "Chocolates" },
-  { "keywords": ["ferrero", "collection"],   "brand": "Ferrero",           "size": "269 g",  "marketPrice": 1350, "category": "Chocolates" },
-  { "keywords": ["milka"],                    "brand": "Milka",             "size": "100 g",  "marketPrice": 300, "category": "Chocolates" },
-  { "keywords": ["hershey", "kisses"],       "brand": "Hershey's",         "size": "150 g",  "marketPrice": 450, "category": "Chocolates" },
-  { "keywords": ["kitkat", "chunky"],        "brand": "KitKat",            "size": "200 g",  "marketPrice": 350, "category": "Chocolates" },
-
-  { "keywords": ["johnnie", "black"],        "brand": "Johnnie Walker", "size": "1 L",    "marketPrice": 4200, "category": "Liquor" },
-  { "keywords": ["chivas", "12"],            "brand": "Chivas",         "size": "1 L",    "marketPrice": 4800, "category": "Liquor" },
-  { "keywords": ["glenfiddich", "12"],       "brand": "Glenfiddich",    "size": "1 L",    "marketPrice": 6500, "category": "Liquor" },
-  { "keywords": ["jack daniel"],             "brand": "Jack Daniel's",  "size": "1 L",    "marketPrice": 3900, "category": "Liquor" },
-  { "keywords": ["absolut"],                 "brand": "Absolut",        "size": "1 L",    "marketPrice": 2600, "category": "Liquor" },
-  { "keywords": ["hennessy", "vs"],          "brand": "Hennessy",       "size": "1 L",    "marketPrice": 8900, "category": "Liquor" },
-
-  { "keywords": ["cetaphil", "moisturizer"], "brand": "Cetaphil",       "size": "500 ml", "marketPrice": 1450, "category": "Cosmetics" },
-  { "keywords": ["neutrogena", "sunscreen"], "brand": "Neutrogena",     "size": "85 ml",  "marketPrice": 650, "category": "Cosmetics" },
-  { "keywords": ["clinique", "lotion"],      "brand": "Clinique",       "size": "200 ml", "marketPrice": 2200, "category": "Cosmetics" },
-  { "keywords": ["maybelline", "mascara"],   "brand": "Maybelline",     "size": "10.7 ml","marketPrice": 450, "category": "Cosmetics" },
-  { "keywords": ["dove", "deodorant"],       "brand": "Dove",           "size": "150 ml", "marketPrice": 280, "category": "Cosmetics" },
-  { "keywords": ["the ordinary", "niacinamide"], "brand": "The Ordinary", "size": "30 ml", "marketPrice": 750, "category": "Cosmetics" },
-  { "keywords": ["l'oreal", "serum"],        "brand": "L'Oreal",        "size": "30 ml", "marketPrice": 950, "category": "Cosmetics" },
-  { "keywords": ["mac", "lipstick"],         "brand": "MAC",             "size": "3 g",   "marketPrice": 2200, "category": "Cosmetics" },
-  { "keywords": ["nyx", "lip"],              "brand": "NYX",             "size": "1 unit", "marketPrice": 850, "category": "Cosmetics" },
-  { "keywords": ["lancome", "serum"],        "brand": "Lancome",         "size": "30 ml", "marketPrice": 6500, "category": "Cosmetics" },
-
-  { "keywords": ["sony", "wh-1000"],         "brand": "Sony",           "size": "1 unit", "marketPrice": 25000, "category": "Electronics" },
-  { "keywords": ["apple", "airpods"],        "brand": "Apple",          "size": "1 pair", "marketPrice": 18900, "category": "Electronics" },
-  { "keywords": ["samsung", "buds"],         "brand": "Samsung",        "size": "1 pair", "marketPrice": 8999, "category": "Electronics" },
-  { "keywords": ["jbl", "headphones"],       "brand": "JBL",             "size": "1 unit", "marketPrice": 4500, "category": "Electronics" },
-  { "keywords": ["bose", "quietcomfort"],    "brand": "Bose",            "size": "1 unit", "marketPrice": 26500, "category": "Electronics" },
-  { "keywords": ["apple", "watch"],           "brand": "Apple",           "size": "1 unit", "marketPrice": 34900, "category": "Electronics" },
-  { "keywords": ["kindle"],                    "brand": "Amazon",          "size": "1 unit", "marketPrice": 10999, "category": "Electronics" },
-  { "keywords": ["marshall", "speaker"],      "brand": "Marshall",        "size": "1 unit", "marketPrice": 29900, "category": "Electronics" },
-
-  { "keywords": ["fossil", "watch"],         "brand": "Fossil",         "size": "1 unit", "marketPrice": 8500, "category": "Accessories" },
-  { "keywords": ["ralph lauren", "belt"],    "brand": "Ralph Lauren",   "size": "1 unit", "marketPrice": 5500, "category": "Accessories" },
-  { "keywords": ["calvin klein", "bag"],     "brand": "Calvin Klein",   "size": "1 unit", "marketPrice": 4200, "category": "Accessories" },
-  { "keywords": ["ray-ban", "sunglasses"],    "brand": "Ray-Ban",         "size": "1 unit", "marketPrice": 9500, "category": "Accessories" },
-  { "keywords": ["michael kors", "watch"],   "brand": "Michael Kors",    "size": "1 unit", "marketPrice": 16500, "category": "Accessories" },
-  { "keywords": ["coach", "bag"],             "brand": "Coach",            "size": "1 unit", "marketPrice": 24500, "category": "Accessories" },
-  { "keywords": ["samsonite", "luggage"],     "brand": "Samsonite",        "size": "1 unit", "marketPrice": 12000, "category": "Accessories" },
-
-  { "keywords": ["red bull", "energy"],      "brand": "Red Bull",       "size": "250 ml", "marketPrice": 150, "category": "Beverages" },
-  { "keywords": ["heinz", "ketchup"],        "brand": "Heinz",          "size": "397 g",  "marketPrice": 280, "category": "Beverages" }
-  ,{ "keywords": ["starbucks", "coffee"],    "brand": "Starbucks",      "size": "200 g",  "marketPrice": 850, "category": "Beverages" }
-  ,{ "keywords": ["nescafe", "gold"],        "brand": "Nescafe",         "size": "200 g",  "marketPrice": 900, "category": "Beverages" }
-  ,{ "keywords": ["lipton", "tea"],          "brand": "Lipton",           "size": "100 bags", "marketPrice": 450, "category": "Beverages" }
-  ,{ "keywords": ["monster", "energy"],      "brand": "Monster",          "size": "500 ml", "marketPrice": 180, "category": "Beverages" }
-  ,{ "keywords": ["coca-cola", "zero"],      "brand": "Coca-Cola",        "size": "6 x 330 ml", "marketPrice": 350, "category": "Beverages" }
+  {
+    "keywords": [
+      "cadbury",
+      "whole nut"
+    ],
+    "brand": "Cadbury",
+    "size": "180 g",
+    "marketPrice": 250,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Cadbury+Dairy+Milk+Whole+Nut+180g"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "chocolate",
+      "milk",
+      "almond",
+      "honey",
+      "1200"
+    ],
+    "brand": "Toblerone",
+    "size": "1200 g",
+    "marketPrice": 2400,
+    "category": "Chocolates",
+    "source": "Amazon India (Imported)",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+Milk+Almond+Honey+1200g"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "milk",
+      "gold",
+      "100"
+    ],
+    "brand": "Toblerone",
+    "size": "100 g",
+    "marketPrice": 195,
+    "category": "Chocolates",
+    "source": "Blinkit / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+Milk+Gold+100g"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "milk",
+      "chocolate",
+      "bar",
+      "200"
+    ],
+    "brand": "Toblerone",
+    "size": "200 g",
+    "marketPrice": 420,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+Milk+Chocolate+200g"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "swiss",
+      "milk",
+      "340"
+    ],
+    "brand": "Toblerone",
+    "size": "340 g",
+    "marketPrice": 700,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+Swiss+Milk+340g"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "tiny",
+      "mono",
+      "bag",
+      "240"
+    ],
+    "brand": "Toblerone",
+    "size": "240 g",
+    "marketPrice": 530,
+    "category": "Chocolates",
+    "source": "Amazon India",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+Tiny+Mono+Bag+240g"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "milk",
+      "messages",
+      "360"
+    ],
+    "brand": "Toblerone",
+    "size": "360 g",
+    "marketPrice": 750,
+    "category": "Chocolates",
+    "source": "Amazon India",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+Milk+Messages+360g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "excellence",
+      "70",
+      "cacao",
+      "100"
+    ],
+    "brand": "Lindt",
+    "size": "100 g",
+    "marketPrice": 450,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Excellence+70+100g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "excellence",
+      "85",
+      "cocoa",
+      "100"
+    ],
+    "brand": "Lindt",
+    "size": "100 g",
+    "marketPrice": 480,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Excellence+85+100g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "excellence",
+      "intense",
+      "orange",
+      "100"
+    ],
+    "brand": "Lindt",
+    "size": "100 g",
+    "marketPrice": 480,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Excellence+Intense+Orange+100g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "excellence",
+      "sea",
+      "salt",
+      "100"
+    ],
+    "brand": "Lindt",
+    "size": "100 g",
+    "marketPrice": 480,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Excellence+Sea+Salt+100g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "lindor",
+      "mini",
+      "tube",
+      "175"
+    ],
+    "brand": "Lindt",
+    "size": "175 g",
+    "marketPrice": 700,
+    "category": "Chocolates",
+    "source": "Amazon India",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Lindor+Mini+Tube+175g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "lindor",
+      "tube",
+      "milk",
+      "400"
+    ],
+    "brand": "Lindt",
+    "size": "400 g",
+    "marketPrice": 1550,
+    "category": "Chocolates",
+    "source": "Amazon India",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Lindor+Tube+Milk+400g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "lindor",
+      "tube",
+      "assorted",
+      "400"
+    ],
+    "brand": "Lindt",
+    "size": "400 g",
+    "marketPrice": 1550,
+    "category": "Chocolates",
+    "source": "Amazon India",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Lindor+Tube+Assorted+400g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "lindor",
+      "assorted",
+      "chocolate",
+      "silver",
+      "tube",
+      "400"
+    ],
+    "brand": "Lindt",
+    "size": "400 g",
+    "marketPrice": 1700,
+    "category": "Chocolates",
+    "source": "Amazon India",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Lindor+Assorted+Silver+Tube+400g"
+  },
+  {
+    "keywords": [
+      "ferrero",
+      "rocher",
+      "t16",
+      "200"
+    ],
+    "brand": "Ferrero",
+    "size": "200 g",
+    "marketPrice": 720,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Ferrero+Rocher+T16+200g"
+  },
+  {
+    "keywords": [
+      "cadbury",
+      "dairy",
+      "milk",
+      "oreo",
+      "300"
+    ],
+    "brand": "Cadbury",
+    "size": "300 g",
+    "marketPrice": 430,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Cadbury+Dairy+Milk+Oreo+300g"
+  },
+  {
+    "keywords": [
+      "cadbury",
+      "dairy",
+      "milk",
+      "whole",
+      "nut",
+      "180"
+    ],
+    "brand": "Cadbury",
+    "size": "180 g",
+    "marketPrice": 280,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Cadbury+Dairy+Milk+Whole+Nut+180g"
+  },
+  {
+    "keywords": [
+      "cadbury",
+      "dairy",
+      "milk",
+      "fruit",
+      "nut",
+      "180"
+    ],
+    "brand": "Cadbury",
+    "size": "180 g",
+    "marketPrice": 280,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Cadbury+Dairy+Milk+Fruit+Nut+180g"
+  },
+  {
+    "keywords": [
+      "cadbury",
+      "dairy",
+      "milk",
+      "wholenut",
+      "bar",
+      "300"
+    ],
+    "brand": "Cadbury",
+    "size": "300 g",
+    "marketPrice": 450,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Cadbury+Dairy+Milk+Wholenut+Bar+300g"
+  },
+  {
+    "keywords": [
+      "milka",
+      "oreo",
+      "tablet",
+      "300"
+    ],
+    "brand": "Milka",
+    "size": "300 g",
+    "marketPrice": 950,
+    "category": "Chocolates",
+    "source": "Amazon India (Imported)",
+    "sourceUrl": "https://www.amazon.in/s?k=Milka+Oreo+Tablet+300g"
+  },
+  {
+    "keywords": [
+      "milka",
+      "raisins",
+      "nuts",
+      "tablet",
+      "270"
+    ],
+    "brand": "Milka",
+    "size": "270 g",
+    "marketPrice": 880,
+    "category": "Chocolates",
+    "source": "Amazon India (Imported)",
+    "sourceUrl": "https://www.amazon.in/s?k=Milka+Raisins+Nuts+Tablet+270g"
+  },
+  {
+    "keywords": [
+      "milka",
+      "chocolate",
+      "swing",
+      "biscuit",
+      "tablet",
+      "300"
+    ],
+    "brand": "Milka",
+    "size": "300 g",
+    "marketPrice": 950,
+    "category": "Chocolates",
+    "source": "Amazon India (Imported)",
+    "sourceUrl": "https://www.amazon.in/s?k=Milka+Chocolate+Swing+Biscuit+Tablet+300g"
+  },
+  {
+    "keywords": [
+      "hershey",
+      "kisses",
+      "milk",
+      "chocolate",
+      "pouch",
+      "507"
+    ],
+    "brand": "Hershey's",
+    "size": "507 g",
+    "marketPrice": 700,
+    "category": "Chocolates",
+    "source": "Amazon India (Imported)",
+    "sourceUrl": "https://www.amazon.in/s?k=Hersheys+Kisses+Milk+Chocolate+Pouch+507g"
+  },
+  {
+    "keywords": [
+      "dior",
+      "sauvage"
+    ],
+    "brand": "Dior",
+    "size": "100 ml",
+    "marketPrice": 10500,
+    "category": "Perfumes",
+    "source": "Nykaa / Sephora India",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Dior+Sauvage+EDT+100ml"
+  },
+  {
+    "keywords": [
+      "chanel",
+      "bleu"
+    ],
+    "brand": "Chanel",
+    "size": "100 ml",
+    "marketPrice": 13500,
+    "category": "Perfumes",
+    "source": "Sephora India / Parcos",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Chanel+Bleu+De+Chanel+100ml"
+  },
+  {
+    "keywords": [
+      "versace",
+      "eros"
+    ],
+    "brand": "Versace",
+    "size": "100 ml",
+    "marketPrice": 8200,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Versace+Eros+EDT+100ml"
+  },
+  {
+    "keywords": [
+      "armani",
+      "acqua",
+      "gio"
+    ],
+    "brand": "Armani",
+    "size": "100 ml",
+    "marketPrice": 9500,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Armani+Acqua+Di+Gio+100ml"
+  },
+  {
+    "keywords": [
+      "gucci",
+      "guilty"
+    ],
+    "brand": "Gucci",
+    "size": "90 ml",
+    "marketPrice": 8900,
+    "category": "Perfumes",
+    "source": "Nykaa / Sephora",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Gucci+Guilty+Pour+Homme"
+  },
+  {
+    "keywords": [
+      "calvin",
+      "klein",
+      "ck one"
+    ],
+    "brand": "Calvin Klein",
+    "size": "200 ml",
+    "marketPrice": 5800,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=CK+One+EDT+200ml"
+  },
+  {
+    "keywords": [
+      "calvin",
+      "klein",
+      "eternity",
+      "amber"
+    ],
+    "brand": "Calvin Klein",
+    "size": "100 ml",
+    "marketPrice": 8900,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Calvin+Klein+Eternity+Amber+Essence"
+  },
+  {
+    "keywords": [
+      "calvin",
+      "klein",
+      "eternity"
+    ],
+    "brand": "Calvin Klein",
+    "size": "100 ml",
+    "marketPrice": 6800,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Calvin+Klein+Eternity+Women+100ml"
+  },
+  {
+    "keywords": [
+      "calvin",
+      "klein",
+      "euphoria",
+      "solar"
+    ],
+    "brand": "Calvin Klein",
+    "size": "100 ml",
+    "marketPrice": 8800,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Calvin+Klein+Euphoria+Solar"
+  },
+  {
+    "keywords": [
+      "calvin",
+      "klein",
+      "euphoria"
+    ],
+    "brand": "Calvin Klein",
+    "size": "100 ml",
+    "marketPrice": 6500,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Calvin+Klein+Euphoria+100ml"
+  },
+  {
+    "keywords": [
+      "calvin",
+      "klein",
+      "gift set"
+    ],
+    "brand": "Calvin Klein",
+    "size": "4-Pc Set",
+    "marketPrice": 7500,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Calvin+Klein+Gift+Set"
+  },
+  {
+    "keywords": [
+      "tom ford",
+      "black orchid",
+      "50ml"
+    ],
+    "brand": "Tom Ford",
+    "size": "50 ml",
+    "marketPrice": 13500,
+    "category": "Perfumes",
+    "source": "Sephora India / Nykaa",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Tom+Ford+Black+Orchid+50ml"
+  },
+  {
+    "keywords": [
+      "tom ford",
+      "black orchid"
+    ],
+    "brand": "Tom Ford",
+    "size": "100 ml",
+    "marketPrice": 19500,
+    "category": "Perfumes",
+    "source": "Sephora India / Nykaa",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Tom+Ford+Black+Orchid+100ml"
+  },
+  {
+    "keywords": [
+      "tom ford",
+      "lost cherry",
+      "50ml"
+    ],
+    "brand": "Tom Ford",
+    "size": "50 ml",
+    "marketPrice": 28000,
+    "category": "Perfumes",
+    "source": "Sephora India",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Tom+Ford+Lost+Cherry+50ml"
+  },
+  {
+    "keywords": [
+      "tom ford",
+      "lost cherry"
+    ],
+    "brand": "Tom Ford",
+    "size": "100 ml",
+    "marketPrice": 45000,
+    "category": "Perfumes",
+    "source": "Sephora India",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Tom+Ford+Lost+Cherry+100ml"
+  },
+  {
+    "keywords": [
+      "prada",
+      "l'homme"
+    ],
+    "brand": "Prada",
+    "size": "100 ml",
+    "marketPrice": 9800,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Prada+L+Homme+100ml"
+  },
+  {
+    "keywords": [
+      "dior",
+      "miss dior"
+    ],
+    "brand": "Dior",
+    "size": "100 ml",
+    "marketPrice": 14000,
+    "category": "Perfumes",
+    "source": "Nykaa / Sephora",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Miss+Dior+100ml"
+  },
+  {
+    "keywords": [
+      "chanel",
+      "coco mademoiselle"
+    ],
+    "brand": "Chanel",
+    "size": "100 ml",
+    "marketPrice": 14500,
+    "category": "Perfumes",
+    "source": "Sephora India / Parcos",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Chanel+Coco+Mademoiselle+100ml"
+  },
+  {
+    "keywords": [
+      "ysl",
+      "libre"
+    ],
+    "brand": "Yves Saint Laurent",
+    "size": "90 ml",
+    "marketPrice": 11500,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=YSL+Libre+EDP+90ml"
+  },
+  {
+    "keywords": [
+      "ysl",
+      "black opium",
+      "50ml"
+    ],
+    "brand": "Yves Saint Laurent",
+    "size": "50 ml",
+    "marketPrice": 8200,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=YSL+Black+Opium+50ml"
+  },
+  {
+    "keywords": [
+      "ysl",
+      "black opium"
+    ],
+    "brand": "Yves Saint Laurent",
+    "size": "90 ml",
+    "marketPrice": 11500,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=YSL+Black+Opium+90ml"
+  },
+  {
+    "keywords": [
+      "ysl",
+      "y eau"
+    ],
+    "brand": "Yves Saint Laurent",
+    "size": "100 ml",
+    "marketPrice": 9800,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=YSL+Y+Eau+De+Parfum+100ml"
+  },
+  {
+    "keywords": [
+      "hugo boss",
+      "bottled",
+      "beyond"
+    ],
+    "brand": "Hugo Boss",
+    "size": "100 ml",
+    "marketPrice": 10500,
+    "category": "Perfumes",
+    "source": "Nykaa / Shoppers Stop",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Hugo+Boss+Bottled+Beyond"
+  },
+  {
+    "keywords": [
+      "hugo boss",
+      "bottled",
+      "50ml"
+    ],
+    "brand": "Hugo Boss",
+    "size": "50 ml",
+    "marketPrice": 5400,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Hugo+Boss+Bottled+EDT+50ml"
+  },
+  {
+    "keywords": [
+      "hugo boss",
+      "bottled"
+    ],
+    "brand": "Hugo Boss",
+    "size": "100 ml",
+    "marketPrice": 7200,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Hugo+Boss+Bottled+EDT+100ml"
+  },
+  {
+    "keywords": [
+      "bvlgari",
+      "man"
+    ],
+    "brand": "Bvlgari",
+    "size": "100 ml",
+    "marketPrice": 10500,
+    "category": "Perfumes",
+    "source": "Nykaa / Shoppers Stop",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Bvlgari+Man+Wood+Essence+100ml"
+  },
+  {
+    "keywords": [
+      "burberry",
+      "her",
+      "50ml"
+    ],
+    "brand": "Burberry",
+    "size": "50 ml",
+    "marketPrice": 7500,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Burberry+Her+EDP+50ml"
+  },
+  {
+    "keywords": [
+      "burberry",
+      "her"
+    ],
+    "brand": "Burberry",
+    "size": "100 ml",
+    "marketPrice": 10500,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Burberry+Her+EDP+100ml"
+  },
+  {
+    "keywords": [
+      "burberry",
+      "goddess",
+      "50ml"
+    ],
+    "brand": "Burberry",
+    "size": "50 ml",
+    "marketPrice": 9000,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Burberry+Goddess+Parfum+50ml"
+  },
+  {
+    "keywords": [
+      "burberry",
+      "goddess"
+    ],
+    "brand": "Burberry",
+    "size": "100 ml",
+    "marketPrice": 12500,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Burberry+Goddess+Parfum+100ml"
+  },
+  {
+    "keywords": [
+      "burberry",
+      "signatures"
+    ],
+    "brand": "Burberry",
+    "size": "100 ml",
+    "marketPrice": 24000,
+    "category": "Perfumes",
+    "source": "Sephora India",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Burberry+Signatures+High+Tea"
+  },
+  {
+    "keywords": [
+      "hermes",
+      "terre"
+    ],
+    "brand": "Hermes",
+    "size": "100 ml",
+    "marketPrice": 12500,
+    "category": "Perfumes",
+    "source": "Sephora India",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Terre+D+Hermes+100ml"
+  },
+  {
+    "keywords": [
+      "clinique",
+      "happy"
+    ],
+    "brand": "Clinique",
+    "size": "100 ml",
+    "marketPrice": 6200,
+    "category": "Perfumes",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Clinique+Happy+Perfume+100ml"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "milk",
+      "360"
+    ],
+    "brand": "Toblerone",
+    "size": "360 g",
+    "marketPrice": 700,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+Milk+Chocolate+360g"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "dark",
+      "360"
+    ],
+    "brand": "Toblerone",
+    "size": "360 g",
+    "marketPrice": 720,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+Dark+Chocolate+360g"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "white",
+      "360"
+    ],
+    "brand": "Toblerone",
+    "size": "360 g",
+    "marketPrice": 720,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+White+Chocolate+360g"
+  },
+  {
+    "keywords": [
+      "toblerone",
+      "milk"
+    ],
+    "brand": "Toblerone",
+    "size": "100 g",
+    "marketPrice": 195,
+    "category": "Chocolates",
+    "source": "Blinkit / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Toblerone+Milk+Chocolate+100g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "dubai"
+    ],
+    "brand": "Lindt",
+    "size": "150 g",
+    "marketPrice": 2200,
+    "isExclusive": true,
+    "category": "Chocolates",
+    "source": "Airport Travel Exclusive (Dubai Benchmark)",
+    "sourceUrl": "https://www.delhidutyfree.co.in/lindt-dubai-style-tablet-dark.html"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "lindor"
+    ],
+    "brand": "Lindt",
+    "size": "500 g",
+    "marketPrice": 1900,
+    "category": "Chocolates",
+    "source": "Amazon India / Nykaa",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Lindor+500g"
+  },
+  {
+    "keywords": [
+      "lindt",
+      "excellence"
+    ],
+    "brand": "Lindt",
+    "size": "100 g",
+    "marketPrice": 450,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Lindt+Excellence+100g"
+  },
+  {
+    "keywords": [
+      "ferrero",
+      "rocher"
+    ],
+    "brand": "Ferrero",
+    "size": "375 g",
+    "marketPrice": 1150,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Ferrero+Rocher+24+Pieces"
+  },
+  {
+    "keywords": [
+      "ferrero",
+      "collection"
+    ],
+    "brand": "Ferrero",
+    "size": "269 g",
+    "marketPrice": 1350,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Ferrero+Collection+269g"
+  },
+  {
+    "keywords": [
+      "m&m"
+    ],
+    "brand": "M&M's",
+    "size": "400 g",
+    "marketPrice": 650,
+    "category": "Chocolates",
+    "source": "Amazon India",
+    "sourceUrl": "https://www.amazon.in/s?k=M%26M+Milk+Chocolate+400g"
+  },
+  {
+    "keywords": [
+      "ghirardelli"
+    ],
+    "brand": "Ghirardelli",
+    "size": "450 g",
+    "marketPrice": 1200,
+    "category": "Chocolates",
+    "source": "Amazon India (Imported)",
+    "sourceUrl": "https://www.amazon.in/s?k=Ghirardelli+Chocolate+Bag"
+  },
+  {
+    "keywords": [
+      "cadbury",
+      "dairy milk"
+    ],
+    "brand": "Cadbury",
+    "size": "180 g",
+    "marketPrice": 220,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Cadbury+Dairy+Milk+Silk+180g"
+  },
+  {
+    "keywords": [
+      "milka"
+    ],
+    "brand": "Milka",
+    "size": "100 g",
+    "marketPrice": 300,
+    "category": "Chocolates",
+    "source": "Amazon India (Imported)",
+    "sourceUrl": "https://www.amazon.in/s?k=Milka+Chocolate+Bar+100g"
+  },
+  {
+    "keywords": [
+      "hershey",
+      "miniatures"
+    ],
+    "brand": "Hershey's",
+    "size": "500 g",
+    "marketPrice": 1100,
+    "category": "Chocolates",
+    "source": "Amazon India (Imported)",
+    "sourceUrl": "https://www.amazon.in/s?k=Hershey+Miniatures+Chocolate+Pouch"
+  },
+  {
+    "keywords": [
+      "hershey",
+      "kisses"
+    ],
+    "brand": "Hershey's",
+    "size": "150 g",
+    "marketPrice": 180,
+    "category": "Chocolates",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Hershey+Kisses+Milk+Chocolate+150g"
+  },
+  {
+    "keywords": [
+      "kitkat",
+      "chunky"
+    ],
+    "brand": "KitKat",
+    "size": "200 g",
+    "marketPrice": 350,
+    "category": "Chocolates",
+    "source": "Amazon India",
+    "sourceUrl": "https://www.amazon.in/s?k=KitKat+Chunky+200g"
+  },
+  {
+    "keywords": [
+      "johnnie walker",
+      "black"
+    ],
+    "brand": "Johnnie Walker",
+    "size": "1 L",
+    "marketPrice": 4200,
+    "category": "Liquor",
+    "source": "Delhi Excise Department",
+    "sourceUrl": "https://delhi.gov.in/service/excise"
+  },
+  {
+    "keywords": [
+      "chivas",
+      "regal"
+    ],
+    "brand": "Chivas",
+    "size": "1 L",
+    "marketPrice": 4800,
+    "category": "Liquor",
+    "source": "Delhi Excise Department",
+    "sourceUrl": "https://delhi.gov.in/service/excise"
+  },
+  {
+    "keywords": [
+      "glenfiddich",
+      "12"
+    ],
+    "brand": "Glenfiddich",
+    "size": "1 L",
+    "marketPrice": 6500,
+    "category": "Liquor",
+    "source": "Delhi Excise Department",
+    "sourceUrl": "https://delhi.gov.in/service/excise"
+  },
+  {
+    "keywords": [
+      "jack daniel",
+      "apple"
+    ],
+    "brand": "Jack Daniel's",
+    "size": "1 L",
+    "marketPrice": 4200,
+    "category": "Liquor",
+    "source": "Delhi Excise Department",
+    "sourceUrl": "https://delhi.gov.in/service/excise"
+  },
+  {
+    "keywords": [
+      "jack daniel",
+      "old no"
+    ],
+    "brand": "Jack Daniel's",
+    "size": "1 L",
+    "marketPrice": 3900,
+    "category": "Liquor",
+    "source": "Delhi Excise Department",
+    "sourceUrl": "https://delhi.gov.in/service/excise"
+  },
+  {
+    "keywords": [
+      "absolut",
+      "vodka"
+    ],
+    "brand": "Absolut",
+    "size": "1 L",
+    "marketPrice": 2600,
+    "category": "Liquor",
+    "source": "Delhi Excise Department",
+    "sourceUrl": "https://delhi.gov.in/service/excise"
+  },
+  {
+    "keywords": [
+      "hennessy",
+      "james"
+    ],
+    "brand": "Hennessy",
+    "size": "1 L",
+    "marketPrice": 22000,
+    "category": "Liquor",
+    "source": "Delhi Excise Board / Retail",
+    "sourceUrl": "https://delhi.gov.in/service/excise"
+  },
+  {
+    "keywords": [
+      "hennessy",
+      "vs"
+    ],
+    "brand": "Hennessy",
+    "size": "1 L",
+    "marketPrice": 8900,
+    "category": "Liquor",
+    "source": "Delhi Excise Department",
+    "sourceUrl": "https://delhi.gov.in/service/excise"
+  },
+  {
+    "keywords": [
+      "clinique",
+      "lotion",
+      "200ml"
+    ],
+    "brand": "Clinique",
+    "size": "200 ml",
+    "marketPrice": 4400,
+    "category": "Cosmetics",
+    "source": "Nykaa / Clinique India",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Clinique+Dramatically+Different+Moisturizing+Lotion+200ml"
+  },
+  {
+    "keywords": [
+      "clinique",
+      "lotion",
+      "125ml"
+    ],
+    "brand": "Clinique",
+    "size": "125 ml",
+    "marketPrice": 3300,
+    "category": "Cosmetics",
+    "source": "Nykaa / Clinique India",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Clinique+Dramatically+Different+Moisturizing+Lotion+125ml"
+  },
+  {
+    "keywords": [
+      "clinique",
+      "lotion"
+    ],
+    "brand": "Clinique",
+    "size": "200 ml",
+    "marketPrice": 4400,
+    "category": "Cosmetics",
+    "source": "Nykaa / Clinique India",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Clinique+Dramatically+Different+Moisturizing+Lotion+200ml"
+  },
+  {
+    "keywords": [
+      "clinique",
+      "men",
+      "lotion"
+    ],
+    "brand": "Clinique",
+    "size": "100 ml",
+    "marketPrice": 3800,
+    "category": "Cosmetics",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Clinique+For+Men+Moisturizing+Lotion+100ml"
+  },
+  {
+    "keywords": [
+      "cetaphil",
+      "moisturizer"
+    ],
+    "brand": "Cetaphil",
+    "size": "500 ml",
+    "marketPrice": 1450,
+    "category": "Cosmetics",
+    "source": "Amazon India / Nykaa",
+    "sourceUrl": "https://www.amazon.in/s?k=Cetaphil+Moisturizing+Lotion+500ml"
+  },
+  {
+    "keywords": [
+      "neutrogena",
+      "sunscreen"
+    ],
+    "brand": "Neutrogena",
+    "size": "88 ml",
+    "marketPrice": 675,
+    "category": "Cosmetics",
+    "source": "Nykaa / Amazon India",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=Neutrogena+Ultra+Sheer+Sunscreen+88ml"
+  },
+  {
+    "keywords": [
+      "burberry",
+      "powder"
+    ],
+    "brand": "Burberry",
+    "size": "20 g",
+    "marketPrice": 4500,
+    "category": "Cosmetics",
+    "source": "Sephora India / Parcos",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Burberry+Beyond+Wear+Matte+Powder"
+  },
+  {
+    "keywords": [
+      "burberry",
+      "lipstick"
+    ],
+    "brand": "Burberry",
+    "size": "3.5 g",
+    "marketPrice": 3800,
+    "category": "Cosmetics",
+    "source": "Sephora India",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Burberry+Kisses+Matte+Lipstick"
+  },
+  {
+    "keywords": [
+      "the ordinary",
+      "niacinamide"
+    ],
+    "brand": "The Ordinary",
+    "size": "30 ml",
+    "marketPrice": 750,
+    "category": "Cosmetics",
+    "source": "Nykaa",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=The+Ordinary+Niacinamide+10+Zinc+1+30ml"
+  },
+  {
+    "keywords": [
+      "mac",
+      "lipstick"
+    ],
+    "brand": "MAC",
+    "size": "3 g",
+    "marketPrice": 2300,
+    "category": "Cosmetics",
+    "source": "Nykaa / MAC India",
+    "sourceUrl": "https://www.nykaa.com/search/result/?q=MAC+Matte+Lipstick+3g"
+  },
+  {
+    "keywords": [
+      "lancome",
+      "serum"
+    ],
+    "brand": "Lancome",
+    "size": "30 ml",
+    "marketPrice": 6500,
+    "category": "Cosmetics",
+    "source": "Sephora India / Nykaa",
+    "sourceUrl": "https://sephora.nnnow.com/search?q=Lancome+Advanced+Genifique+Serum+30ml"
+  },
+  {
+    "keywords": [
+      "sony",
+      "wh-1000"
+    ],
+    "brand": "Sony",
+    "size": "1 unit",
+    "marketPrice": 29990,
+    "category": "Electronics",
+    "source": "Sony India Official / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Sony+WH-1000XM5+Wireless+Headphones"
+  },
+  {
+    "keywords": [
+      "apple",
+      "airpods"
+    ],
+    "brand": "Apple",
+    "size": "1 pair",
+    "marketPrice": 24900,
+    "category": "Electronics",
+    "source": "Apple India / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Apple+AirPods+Pro+2nd+Generation"
+  },
+  {
+    "keywords": [
+      "samsung",
+      "buds"
+    ],
+    "brand": "Samsung",
+    "size": "1 pair",
+    "marketPrice": 11999,
+    "category": "Electronics",
+    "source": "Samsung India / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Samsung+Galaxy+Buds2+Pro"
+  },
+  {
+    "keywords": [
+      "jbl",
+      "headphones"
+    ],
+    "brand": "JBL",
+    "size": "1 unit",
+    "marketPrice": 4500,
+    "category": "Electronics",
+    "source": "JBL India / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=JBL+Wireless+Over+Ear+Headphones"
+  },
+  {
+    "keywords": [
+      "bose",
+      "quietcomfort"
+    ],
+    "brand": "Bose",
+    "size": "1 unit",
+    "marketPrice": 29900,
+    "category": "Electronics",
+    "source": "Bose India / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Bose+QuietComfort+Headphones"
+  },
+  {
+    "keywords": [
+      "apple",
+      "watch"
+    ],
+    "brand": "Apple",
+    "size": "1 unit",
+    "marketPrice": 34900,
+    "category": "Electronics",
+    "source": "Apple India / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Apple+Watch+Series+Aluminum"
+  },
+  {
+    "keywords": [
+      "marshall",
+      "speaker"
+    ],
+    "brand": "Marshall",
+    "size": "1 unit",
+    "marketPrice": 29900,
+    "category": "Electronics",
+    "source": "Marshall Official / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Marshall+Stanmore+III+Wireless+Speaker"
+  },
+  {
+    "keywords": [
+      "guess",
+      "watch"
+    ],
+    "brand": "GUESS",
+    "size": "1 unit",
+    "marketPrice": 14500,
+    "category": "Accessories",
+    "source": "Tata CLiQ Luxury / Myntra",
+    "sourceUrl": "https://luxury.tatacliq.com/search?searchCategory=watches&text=Guess+Watch"
+  },
+  {
+    "keywords": [
+      "fossil",
+      "watch"
+    ],
+    "brand": "Fossil",
+    "size": "1 unit",
+    "marketPrice": 11995,
+    "category": "Accessories",
+    "source": "Fossil India / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Fossil+Mens+Chronograph+Watch"
+  },
+  {
+    "keywords": [
+      "michael kors",
+      "watch"
+    ],
+    "brand": "Michael Kors",
+    "size": "1 unit",
+    "marketPrice": 19995,
+    "category": "Accessories",
+    "source": "Tata CLiQ Luxury / Nykaa",
+    "sourceUrl": "https://luxury.tatacliq.com/search?searchCategory=watches&text=Michael+Kors+Watch"
+  },
+  {
+    "keywords": [
+      "titan",
+      "watch"
+    ],
+    "brand": "Titan",
+    "size": "1 unit",
+    "marketPrice": 8995,
+    "category": "Accessories",
+    "source": "Titan India Official",
+    "sourceUrl": "https://www.titan.co.in/search?q=Titan+Watch"
+  },
+  {
+    "keywords": [
+      "casio",
+      "watch"
+    ],
+    "brand": "Casio",
+    "size": "1 unit",
+    "marketPrice": 8995,
+    "category": "Accessories",
+    "source": "Casio India Official",
+    "sourceUrl": "https://www.casio.com/in/search?q=G-Shock+Watch"
+  },
+  {
+    "keywords": [
+      "ray-ban",
+      "sunglasses"
+    ],
+    "brand": "Ray-Ban",
+    "size": "1 unit",
+    "marketPrice": 9890,
+    "category": "Accessories",
+    "source": "Ray-Ban India Official",
+    "sourceUrl": "https://india.ray-ban.com/catalogsearch/result/?q=Sunglasses"
+  },
+  {
+    "keywords": [
+      "red bull",
+      "energy"
+    ],
+    "brand": "Red Bull",
+    "size": "250 ml",
+    "marketPrice": 150,
+    "category": "Beverages",
+    "source": "Blinkit / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Red+Bull+Energy+Drink+250ml"
+  },
+  {
+    "keywords": [
+      "starbucks",
+      "coffee"
+    ],
+    "brand": "Starbucks",
+    "size": "200 g",
+    "marketPrice": 850,
+    "category": "Beverages",
+    "source": "Amazon India",
+    "sourceUrl": "https://www.amazon.in/s?k=Starbucks+Ground+Coffee+200g"
+  },
+  {
+    "keywords": [
+      "nescafe",
+      "gold"
+    ],
+    "brand": "Nescafe",
+    "size": "200 g",
+    "marketPrice": 900,
+    "category": "Beverages",
+    "source": "Amazon India / Blinkit",
+    "sourceUrl": "https://www.amazon.in/s?k=Nescafe+Gold+Blend+Coffee+200g"
+  },
+  {
+    "keywords": [
+      "monster",
+      "energy"
+    ],
+    "brand": "Monster",
+    "size": "500 ml",
+    "marketPrice": 180,
+    "category": "Beverages",
+    "source": "Blinkit / Amazon",
+    "sourceUrl": "https://www.amazon.in/s?k=Monster+Energy+Drink+500ml"
+  }
 ]

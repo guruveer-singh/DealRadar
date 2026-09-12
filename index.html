@@ -3,57 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DealRadar — Duty Free vs Market</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="description" content="Compare Delhi Duty Free prices with Indian market prices before you fly." />
+  <meta name="theme-color" content="#08151d" />
+  <title>DealRadar | Delhi Duty Free Price Comparison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="wrap">
+  <div class="site-shell">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="DealRadar home"><span class="brand__mark" aria-hidden="true">✦</span><span>Deal<span>Radar</span></span></a>
+      <div class="nav__meta"><span class="nav__dot"></span> Delhi, India</div>
+    </nav>
 
-    <!-- Header -->
-    <header class="hero">
-      <h1>Deal<span>Radar</span> ✈️</h1>
-      <p>Is it actually cheaper at Delhi Duty Free? Find the real deals.</p>
-      <p id="updated" class="updated"></p>
+    <main id="top">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="eyebrow"><span></span> The smarter way to shop before take-off</div>
+        <h1 id="page-title">Know the deal.<br /><em>Then take off.</em></h1>
+        <p class="hero__lede">A straightforward comparison of Delhi Duty Free prices and Indian market prices—so you can buy with confidence.</p>
+        <div class="trust-row" aria-label="Service highlights"><span>Live price tracking</span><i></i><span>Clear savings</span><i></i><span>Delhi Duty Free</span></div>
+      </section>
 
-      <div class="stat">
-        <div>
-          <b id="count">0</b>
-          <small>products shown</small>
+      <section class="dashboard" aria-label="Deal dashboard">
+        <div class="dashboard__heading">
+          <div><p class="section-kicker">Today’s radar</p><h2>Find your best buy</h2></div>
+          <p id="updated" class="updated" aria-live="polite"></p>
         </div>
-        <div>
-          <b id="totalSave">₹0</b>
-          <small>total you'd save</small>
+
+        <div class="stat" aria-label="Current deal summary">
+          <div class="stat__item"><span class="stat__icon">⌁</span><div><b id="count">0</b><small>products compared</small></div></div>
+          <div class="stat__item"><span class="stat__icon">₹</span><div><b id="totalSave">₹0</b><small>potential savings</small></div></div>
+          <div class="stat__item stat__item--wide"><span class="stat__icon">✦</span><div><b id="bestDeal">—</b><small>best-priced deal right now</small></div></div>
         </div>
-        <div>
-          <b id="bestDeal">—</b>
-          <small>best deal right now</small>
+
+        <div class="controls" role="search">
+          <label class="search-field" for="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search a brand or product" autocomplete="off" /></label>
+          <label class="sort-field" for="sort"><span>Sort by</span><select id="sort"><option value="score">Best deal</option><option value="savings">Most ₹ saved</option><option value="price">Lowest price</option></select></label>
         </div>
-      </div>
-    </header>
 
-    <!-- Search + sort -->
-    <div class="controls">
-      <input id="search" type="text" placeholder="Search a product or brand… e.g. Dior, whiskey" />
-      <select id="sort">
-        <option value="score">Sort: Best deal</option>
-        <option value="savings">Sort: Most ₹ saved</option>
-        <option value="price">Sort: Lowest price</option>
-      </select>
-    </div>
+        <div class="filter-row"><p>Browse by category</p><div id="categories" class="categories" aria-label="Product categories"></div></div>
+        <div id="grid" class="grid" aria-live="polite"></div>
+      </section>
 
-    <!-- Category chips (filled in by app.js) -->
-    <div id="categories" class="categories"></div>
-
-    <!-- Product cards (filled in by app.js) -->
-    <main id="grid" class="grid"></main>
+      <section class="how-it-works" aria-labelledby="how-it-works-title">
+        <div><p class="section-kicker">No guesswork</p><h2 id="how-it-works-title">A clearer way to compare.</h2></div>
+        <div class="steps">
+          <article><span>01</span><h3>We check prices</h3><p>Duty Free prices are matched with the latest available market references.</p></article>
+          <article><span>02</span><h3>You see the difference</h3><p>Each product shows its price gap and a simple deal score at a glance.</p></article>
+          <article><span>03</span><h3>You buy smarter</h3><p>Take the guesswork out of your airport shopping list.</p></article>
+        </div>
+      </section>
+    </main>
 
     <footer>
-      Duty Free prices are fetched from Delhi Duty Free. Market values show the source and verification status on each card.
+      <div class="footer__brand"><span class="brand__mark" aria-hidden="true">✦</span> DealRadar</div>
+      <p>Prices are indicative and may change at the airport. Always confirm before purchase.</p>
+      <p>© <span id="year"></span> DealRadar · Delhi Duty Free price comparison</p>
     </footer>
   </div>
 
-  <!-- Load data first, then the app logic -->
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script>
+    // Automatic cache busting to prevent stale browser cache
+    const v = Date.now();
+    document.write('<script src="data.js?t=' + v + '"><\/script>');
+    document.write('<script src="app.js?t=' + v + '"><\/script>');
+  </script>
 </body>
 </html>

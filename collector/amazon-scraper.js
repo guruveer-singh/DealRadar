@@ -44,7 +44,7 @@ async function fetchAmazonPrices() {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
           "Accept": "text/html,application/xhtml+xml",
         },
-        timeout: 10000,
+        signal: AbortSignal.timeout(10000),
       });
 
       if (!response.ok) {
