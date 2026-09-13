@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="description" content="About DealRadar - Compare Delhi Duty Free prices with Indian market prices before you fly." />
+  <meta name="theme-color" content="#08151d" />
+  <title>About DealRadar | Delhi Duty Free Price Comparison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="DealRadar home"><span class="brand__mark" aria-hidden="true">✦</span><span>Deal<span>Radar</span></span></a>
+      <div class="nav__meta"><span class="nav__dot"></span> Delhi, India</div>
+      <a href="about.html" class="nav__link">About</a>
+    </nav>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="eyebrow"><span></span> About DealRadar</div>
+        <h1 id="page-title">Know the deal.<br /><em>Then take off.</em></h1>
+        <p class="hero__lede">A straightforward comparison of Delhi Duty Free prices and Indian market prices—so you can buy with confidence.</p>
+        <div class="trust-row" aria-label="Service highlights"><span>Live price tracking</span><i></i><span>Clear savings</span><i></i><span>Delhi Duty Free</span></div>
+      </section>
+
+      <section class="about" aria-label="About DealRadar">
+        <div class="about__content">
+          <h2>What is DealRadar?</h2>
+          <p>DealRadar is a price comparison tool that helps travelers compare Delhi Duty Free prices with Indian market prices before they fly. By providing live price tracking and clear savings calculations, DealRadar takes the guesswork out of airport shopping.</p>
+
+          <h2>How it works</h2>
+          <ol>
+            <li>We check prices: Duty Free prices are matched with the latest available market references.</li>
+            <li>You see the difference: Each product shows its price gap and a simple deal score at a glance.</li>
+            <li>You buy smarter: Take the guesswork out of your airport shopping list.</li>
+          </ol>
+
+          <h2>Data Sources</h2>
+          <p>Duty Free prices are sourced from the Delhi Duty Free official GraphQL API (live, updated daily). Market prices are gathered from various Indian retailers and e-commerce platforms.</p>
+
+          <h2>Disclaimer</h2>
+          <p>Prices are indicative and may change at the airport. Always confirm before purchase.</p>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer__brand"><span class="brand__mark" aria-hidden="true">✦</span> DealRadar</div>
+        <p>Prices are indicative and may change at the airport. Always confirm before purchase.</p>
+        <p>© <span id="year"></span> DealRadar · Delhi Duty Free price comparison</p>
+      </footer>
+    </div>
+
+    <script>
+      // Automatic cache busting to prevent stale browser cache
+      const v = Date.now();
+      document.write('<script src="data.js?t=' + v + '"><\/script>');
+      document.write('<script src="app.js?t=' + v + '"><\/script>');
+    </script>
+  </body>
+</html>
