@@ -2,7 +2,7 @@
 
 [![GitHub Actions Workflow](https://github.com/guruveer-singh/DealRadar/actions/workflows/update-prices.yml/badge.svg)](https://github.com/guruveer-singh/DealRadar/actions/workflows/update-prices.yml)
 
-A real-time price comparison tool that helps travelers decide: **"Is this really cheaper at Delhi Duty Free, or should I buy it locally?"**
+A price comparison tool that helps travelers decide: **"Is this really cheaper at Delhi Duty Free, or should I buy it locally?"** The website displays the latest saved catalogue and its update date.
 
 ## 🎯 What It Does
 
@@ -81,12 +81,25 @@ schedule:
 - ℹ️ GitHub may delay scheduled runs under load, so the commit typically lands
   a few hours after 06:00 UTC rather than exactly on time.
 
-### Deployment (Netlify)
+### Deployment (GitHub Pages)
 
-The daily data commit is wired to reach the live site automatically:
+The live site is published from `main` at the repository root by GitHub Pages,
+with `www.ddfgroup.in` configured in `CNAME`. Every push, including the daily
+automated data commit, triggers a Pages rebuild. `.nojekyll` serves the files
+directly. Configure publishing under **Settings → Pages → Deploy from a branch**.
 
-- `netlify.toml` builds a `dist/` directory containing only the four static
-  files the site needs (`index.html`, `app.js`, `style.css`, `data.js`).
+For the GoDaddy domain, `www` must be a CNAME to `guruveer-singh.github.io`.
+The apex (`@`) needs four A records: `185.199.108.153`, `185.199.109.153`,
+`185.199.110.153`, and `185.199.111.153`. Replace the old website's apex A record,
+then enable **Enforce HTTPS** in GitHub Pages after certificate provisioning.
+See [GitHub's custom domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+
+### Optional Netlify deployment
+
+The project also supports Netlify:
+
+- `netlify.toml` builds a `dist/` directory containing the five static
+  files the site needs (`index.html`, `about.html`, `app.js`, `style.css`, `data.js`).
 - `build-site.js` performs that copy.
 - Link the Netlify site to this repository (*Site configuration → Build &
   deploy → Link repository*, branch `main`). Once linked, every commit —
@@ -107,13 +120,26 @@ deal_score = savings_percent × 2.5 (capped at 100)
 - **Score 60-79:** Good deal (24-31% savings)
 - **Score 0-59:** Fair deal (<24% savings)
 
+Scores are calculated only when a market reference is available. Other listings,
+including airport exclusives without a reference, are marked **Unrated**. A market
+reference below the Duty Free price is labelled **Lower in market**. References
+can differ in age and product matching; confirm the exact variant and pack size.
+Snapshots older than 48 hours show an explicit freshness warning.
+
+### Frontend checks
+
+Run `npm test` for the dependency-free regression checks and `npm run build` to
+prepare the static site. Search, category and sort changes reset pagination to
+page one. Category counts reflect the current search. The About page explains
+scores, data freshness and the catalogue-wide savings total.
+
 ## 📁 Project Structure
 
 ```
 DealRadar/
 ├── index.html          # Main web interface
 ├── app.js              # Frontend logic (search, filter, render)
-├── style.css           # Dark theme styling
+├── style.css           # Responsive cream-and-green styling
 ├── data.js             # Auto-generated product database
 ├── collector/          # Data collection scripts
 │   ├── collector.js    # Main orchestrator

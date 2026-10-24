@@ -14,8 +14,17 @@ cd collector
 node collector.js
 ```
 
-Then just refresh `index.html` in the browser — header flips to
-**🟢 Live prices · updated just now**.
+Then refresh `index.html` in the browser — the header shows the new snapshot date.
+
+The refresh uses the canonical `https://delhidutyfree.co.in/graphql` address.
+The old `www` host redirects requests and can drop the GraphQL POST body,
+causing `Syntax Error: Unexpected <EOF>` and leaving the daily job stuck.
+If any search fails, the existing `data.js` is preserved and the job fails.
+
+Only duty-free prices are refreshed automatically. Market comparisons use
+saved retail references; missing or older-than-30-day verification dates are
+flagged for review. The liquor reference table is unverified. Amazon search
+page price extraction is disabled because it can select unrelated listings.
 
 ## How it works
 

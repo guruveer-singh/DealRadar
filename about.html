@@ -7,61 +7,69 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="description" content="About DealRadar - Compare Delhi Duty Free prices with Indian market prices before you fly." />
-  <meta name="theme-color" content="#08151d" />
+  <meta name="theme-color" content="#f5f3ed" />
   <title>About DealRadar | Delhi Duty Free Price Comparison</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3" />
+  <script src="app.js?v=3" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#about-content">Skip to about DealRadar</a>
   <div class="site-shell">
     <nav class="nav" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="DealRadar home"><span class="brand__mark" aria-hidden="true">✦</span><span>Deal<span>Radar</span></span></a>
+      <a class="brand" href="index.html" aria-label="DealRadar home"><span class="brand__mark" aria-hidden="true">✦</span><span>Deal<span>Radar</span></span></a>
       <div class="nav__meta"><span class="nav__dot"></span> Delhi, India</div>
-      <a href="about.html" class="nav__link">About</a>
+      <a href="index.html#deals" class="nav__link">Browse deals <span aria-hidden="true">&nbsp;↗</span></a>
     </nav>
 
     <main id="top">
-      <section class="hero" aria-labelledby="page-title">
+      <section class="hero hero--about" aria-labelledby="page-title">
         <div class="eyebrow"><span></span> About DealRadar</div>
-        <h1 id="page-title">Know the deal.<br /><em>Then take off.</em></h1>
-        <p class="hero__lede">A straightforward comparison of Delhi Duty Free prices and Indian market prices—so you can buy with confidence.</p>
-        <div class="trust-row" aria-label="Service highlights"><span>Live price tracking</span><i></i><span>Clear savings</span><i></i><span>Delhi Duty Free</span></div>
+        <h1 id="page-title">A little clarity.<br /><em>Before you fly.</em></h1>
+        <p class="hero__lede">Airport shopping should start with a good comparison. Here’s what goes into yours.</p>
       </section>
 
-      <section class="about" aria-label="About DealRadar">
+      <section id="about-content" class="about" aria-label="About DealRadar" tabindex="-1">
         <div class="about__content">
-          <h2>What is DealRadar?</h2>
-          <p>DealRadar is a price comparison tool that helps travelers compare Delhi Duty Free prices with Indian market prices before they fly. By providing live price tracking and clear savings calculations, DealRadar takes the guesswork out of airport shopping.</p>
-
-          <h2>How it works</h2>
-          <ol>
-            <li>We check prices: Duty Free prices are matched with the latest available market references.</li>
-            <li>You see the difference: Each product shows its price gap and a simple deal score at a glance.</li>
-            <li>You buy smarter: Take the guesswork out of your airport shopping list.</li>
-          </ol>
-
-          <h2>Data Sources</h2>
-          <p>Duty Free prices are sourced from the Delhi Duty Free official GraphQL API (live, updated daily). Market prices are gathered from various Indian retailers and e-commerce platforms.</p>
-
-          <h2>Disclaimer</h2>
-          <p>Prices are indicative and may change at the airport. Always confirm before purchase.</p>
+          <section class="about__section">
+            <p class="section-kicker">A smarter shopping list</p>
+            <h2>What is DealRadar?</h2>
+            <p>DealRadar helps you compare Delhi Duty Free prices with Indian market references before you travel. Browse perfumes, liquor, chocolates, cosmetics and accessories, then check the official listing when something catches your eye.</p>
+          </section>
+          <section id="comparisons" class="about__section">
+            <h2>How the comparison works</h2>
+            <ol>
+              <li><strong>Start with the saved price.</strong> The catalogue displays the most recently collected Duty Free prices. Check the update date above the filters; this is a saved snapshot.</li>
+              <li><strong>Compare the reference.</strong> Where a market reference is available, we subtract the Duty Free price to show the potential saving. A negative saving means the market reference is cheaper.</li>
+              <li><strong>Use the score as a guide.</strong> The percentage saving is multiplied by 2.5, rounded and capped between 0 and 100. A higher score means a larger saving against that reference. <strong>Unrated</strong> means there is no market comparison; an airport exclusive does not automatically earn a score.</li>
+            </ol>
+            <p class="about__note">“Total savings across matches” adds the positive savings for one of each matched listing in your current results. It is a catalogue total, and includes different sizes and variants.</p>
+          </section>
+          <section class="about__section">
+            <h2>Where prices come from</h2>
+            <div class="about__sources">
+              <article><h3>Delhi Duty Free</h3><p>Prices are collected from the official Delhi Duty Free catalogue. Each product card links to its store listing where available.</p></article>
+              <article><h3>Market references</h3><p>References come from the project’s retail and liquor MRP catalogue. Source links are shown where available. Reference dates and product matches may vary.</p></article>
+            </div>
+          </section>
+          <section class="about__section">
+            <h2>A useful guide, with a final check</h2>
+            <p>Prices, promotions and availability can change. Confirm the exact product, pack size, concentration and current price with the retailer before purchasing. Market references may be older than the Duty Free snapshot.</p>
+            <p>DealRadar is an independent comparison tool and is not affiliated with Delhi Duty Free or the retailers referenced.</p>
+            <a class="button" href="index.html#deals">Explore the prices <span aria-hidden="true">↗</span></a>
+          </section>
         </div>
       </section>
+    </main>
 
-      <footer>
-        <div class="footer__brand"><span class="brand__mark" aria-hidden="true">✦</span> DealRadar</div>
-        <p>Prices are indicative and may change at the airport. Always confirm before purchase.</p>
-        <p>© <span id="year"></span> DealRadar · Delhi Duty Free price comparison</p>
-      </footer>
-    </div>
+    <footer>
+      <a class="footer__brand" href="index.html"><span class="brand__mark" aria-hidden="true">✦</span> DealRadar</a>
+      <p>Prices are indicative and may change at the airport. Always confirm before purchase.</p>
+      <p>© <span id="year"></span> DealRadar · Delhi Duty Free price comparison</p>
+    </footer>
+  </div>
 
-    <script>
-      // Automatic cache busting to prevent stale browser cache
-      const v = Date.now();
-      document.write('<script src="data.js?t=' + v + '"><\/script>');
-      document.write('<script src="app.js?t=' + v + '"><\/script>');
-    </script>
-  </body>
+</body>
 </html>

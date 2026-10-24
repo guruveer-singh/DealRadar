@@ -21,21 +21,17 @@
 
 const fs = require("fs");
 const path = require("path");
+const vm = require("node:vm");
 
-const SITE = "https://www.delhidutyfree.co.in";
+// Use the canonical host: the www redirect drops POST bodies for GraphQL.
+const SITE = "https://delhidutyfree.co.in";
 const GRAPHQL = SITE + "/graphql";
 
 // Import official liquor MRP data
 const { getOfficialLiquorMRP } = require("./liquor-mrp-fetcher");
 
-// Import Amazon scraper (optional - may fail if Amazon blocks)
-let fetchAmazonPrices;
-try {
-  ({ fetchAmazonPrices } = require("./amazon-scraper"));
-} catch (e) {
-  console.warn("⚠️  Amazon scraper not available - proceeding without it");
-  fetchAmazonPrices = async () => [];
-}
+// Search-page prices cannot be tied to an exact product/size. Keep the
+// curated references until a product-specific retail source is available.
 
 // Categories & popular brand targets to query from Delhi Duty Free API
 const CATEGORIES = [
@@ -376,17 +372,12 @@ async function main() {
 
   const liquorMRPList = getOfficialLiquorMRP();
   
-  let amazonPrices = [];
-  try {
-    amazonPrices = await fetchAmazonPrices();
-    console.log(`✓ Fetched ${amazonPrices.length} prices from Amazon\n`);
-  } catch (err) {
-    console.log(`⚠️  Amazon fetch failed (this is normal if Amazon is blocking): ${err.message}\n`);
-  }
-
   const enhancedMarketList = [
     ...marketList.map(item => ({
       ...item,
+      needsVerification: Boolean(item.needsVerification) || !item.lastVerified ||
+        !Number.isFinite(Date.parse(item.lastVerified)) ||
+        Date.now() - Date.parse(item.lastVerified) > 30 * 24 * 60 * 60 * 1000,
       category: normalizeCategory(item.category, item.brand + " " + (item.keywords || []).join(" "))
     })),
     ...liquorMRPList.map(item => ({
@@ -395,44 +386,43 @@ async function main() {
       size: item.size,
       category: "Liquor",
       marketPrice: item.mrp,
-      source: "Delhi Retail MRP",
+      source: "Delhi retail reference (unverified)",
       sourceUrl: null,
       lastVerified: item.lastVerified,
-      needsVerification: false,
-    })),
-    ...amazonPrices.map(item => ({
-      keywords: [item.brand.toLowerCase(), ...((item.product || "").toLowerCase().split(/\s+/).filter(w => w.length > 2 && !GENERIC_MATCH_WORDS.has(w)))],
-      brand: item.brand,
-      size: item.product,
-      category: normalizeCategory(item.category, item.brand + " " + item.product),
-      marketPrice: item.mrp || item.currentPrice,
-      source: "Amazon.in",
-      sourceUrl: item.sourceUrl || null,
-      lastVerified: item.lastUpdated,
+      needsVerification: true,
     })),
   ];
 
   console.log(
-    `📦 Market data loaded: ${marketList.length} base + ${liquorMRPList.length} liquor MRP + ${amazonPrices.length} Amazon prices\n`
+    `📦 Saved market references loaded: ${marketList.length} base + ${liquorMRPList.length} liquor references\n`
   );
 
   const dataPath = path.join(__dirname, "..", "data.js");
   const oldPrices = {};
   try {
     const old = fs.readFileSync(dataPath, "utf8");
-    for (const m of old.matchAll(/name:\s*"([^"]+)"[\s\S]*?dutyFree:\s*(\d+)/g)) {
-      oldPrices[m[1]] = Number(m[2]);
+    const previousProducts = vm.runInNewContext(old + "; PRODUCTS", {}, { timeout: 1000 });
+    for (const product of previousProducts) {
+      oldPrices[product.name] = product.dutyFree;
     }
   } catch { /* first run — fine */ }
 
   const rawCollected = [];
   for (const cat of CATEGORIES) {
-    try {
-      const items = await fetchCategory(cat);
-      rawCollected.push(...items);
-    } catch (err) {
-      console.error(`✗ ${err.message}`);
-      if (String(err.message).includes("Stopping")) process.exit(1);
+    for (let attempt = 0; ; attempt++) {
+      try {
+        const items = await fetchCategory(cat);
+        rawCollected.push(...items);
+        break;
+      } catch (err) {
+        const transient = err.name === "TimeoutError" || err.message === "fetch failed" ||
+          /^HTTP (502|503|504)\b/.test(err.message);
+        if (!transient || attempt >= 2) {
+          throw new Error(`${err.message}. Refresh incomplete — data.js NOT overwritten.`);
+        }
+        console.warn(`Temporary connection failure; retrying this search (${attempt + 1}/2).`);
+        await sleep(3000 * (attempt + 1));
+      }
     }
     await sleep(1500);
   }
@@ -544,6 +534,7 @@ function extractBrand(productName) {
         market: resolvedMarketPrice,
         marketSource: market.source || "Local Retail / Amazon.in",
         marketSourceUrl: sourceLink,
+        marketLastVerified: market.lastVerified || null,
         emoji: emojiFor[finalCategory] || "🛍️",
         previousDutyFree: oldPrices[item.name] || null,
         isExclusive: Boolean(market.isExclusive) || isTitleExclusive,
@@ -585,15 +576,14 @@ function extractBrand(productName) {
     `// Run "node collector/collector.js" to refresh.\n\n` +
     `// Data Sources:\n` +
     `// - Duty Free Prices: Delhi Duty Free official GraphQL API (live, updated daily)\n` +
-    `// - Market Prices: Delhi Excise Board (liquor MRP), Amazon.in, local retail\n` +
+    `// - Market Prices: saved retail references; see per-product verification flags\n` +
     `// - Last Updated: ${now}\n\n` +
     `const LAST_UPDATED = "${now}";\n` +
     `const DATA_SOURCE = "live";\n` +
     `const DATA_ATTRIBUTION = {\n` +
     `  dutyFree: "Delhi Duty Free Official Website",\n` +
-    `  market: "Official MRP / Retail Aggregators",\n` +
-    `  liquor: "Delhi Excise Board",\n` +
-    `  amazon: "Amazon.in Public Prices",\n` +
+    `  market: "Saved retail references (not refreshed automatically)",\n` +
+    `  liquor: "Compiled retail references (unverified)",\n` +
     `  lastUpdated: "${now}"\n` +
     `};\n\n` +
     `const PRODUCTS = ${JSON.stringify(products, null, 2)};\n`;

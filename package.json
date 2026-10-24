@@ -5,6 +5,7 @@
   "scripts": {
     "update": "node collector/collector.js",
     "collect": "node collector/collector.js",
-    "build": "node build-site.js"
+    "build": "node build-site.js",
+    "test": "node --test tests/*.test.js"
   }
 }

@@ -1,349 +1,312 @@
-/*
-  app.js — all the logic for DealRadar.
-
-  What it does:
-    1. Takes each product and calculates savings + a "Deal Score".
-    2. Draws a card for every product (with a 🔥 ribbon on the best ones).
-    3. Lets the user search, filter by category, and sort.
-    4. Shows when prices were last updated.
-
-  It reads PRODUCTS / LAST_UPDATED from data.js (loaded before this file).
-  data.js is rewritten automatically by the collector script (V2).
-*/
-
-// ---- 1. Money helper: format 8500 -> "₹8,500" (Indian style) ----
-function rupees(n) {
-  if (typeof n !== "number" || isNaN(n)) return "—";
-  return "₹" + n.toLocaleString("en-IN");
-}
-
-// ---- 2. "2 hours ago" style time formatting ----
-function timeAgo(isoString) {
-  const then = new Date(isoString).getTime();
-  if (isNaN(then)) return "unknown";
-  const mins = Math.round((Date.now() - then) / 60000);
-  if (mins < 1) return "just now";
-  if (mins < 60) return mins + " min ago";
-  const hrs = Math.round(mins / 60);
-  if (hrs < 24) return hrs + (hrs === 1 ? " hour ago" : " hours ago");
-  const days = Math.round(hrs / 24);
-  return days + (days === 1 ? " day ago" : " days ago");
-}
-
-// ---- 3. Add calculated fields to every product ----
-function withStats(p) {
-  const hasMarket = Number(p.market) > 0;
-  const savings = hasMarket ? p.market - p.dutyFree : 0;
-  const savingsPct = hasMarket ? (savings / p.market) * 100 : 0;
-  const dealScore = hasMarket
-    ? Math.min(100, Math.max(0, Math.round(savingsPct * 2.5)))
-    : (p.isExclusive ? 95 : 60);
-
-  const priceChange = p.previousDutyFree ? p.dutyFree - p.previousDutyFree : 0;
-
-  return { ...p, savings, savingsPct, dealScore, priceChange, hasMarket };
-}
-
-let ALL = [];
-
-const HOT_SCORE = 85;
+/* DealRadar: the catalogue stays in data.js; this file only controls its display. */
 const PAGE_SIZE = 24;
-let currentPage = 1;
+const HOT_SCORE = 85;
+let ALL = [];
 let filteredList = [];
-
-// ---- 4. Give each score a colour + label ----
-function scoreTier(score) {
-  if (score >= 80) return { label: "Great deal", cls: "great" };
-  if (score >= 60) return { label: "Good deal",  cls: "good" };
-  return { label: "Standard", cls: "okay" };
-}
-
-// ---- 5. Current state of the filters ----
+let currentPage = 1;
 let activeCategory = "All";
 let searchText = "";
-let sortMode = "score"; // "score" | "savings" | "price"
+let sortMode = "score";
 
-// ---- 6. Build one product card as HTML ----
-function cardHTML(p) {
-  const tier = scoreTier(p.dealScore);
-  const isExclusive = Boolean(p.isExclusive);
-  const hot = p.hasMarket && p.dealScore >= HOT_SCORE;
-  const safeSavingsPct = Math.max(0, p.savingsPct);
-
-  let savingsLabel = "";
-  if (isExclusive) {
-    savingsLabel = `Airport Exclusive · Save ${rupees(p.savings)}`;
-  } else if (p.hasMarket) {
-    savingsLabel = p.savings >= 0
-      ? `Save ${rupees(p.savings)} (${Math.round(p.savingsPct)}%)`
-      : `${rupees(-p.savings)} more than market`;
-  } else {
-    savingsLabel = `Delhi Duty Free Live Price`;
-  }
-
-  const sourceLink = p.marketSourceUrl
-    ? `<a href="${p.marketSourceUrl}" target="_blank" rel="noreferrer">View source</a>`
-    : p.hasMarket ? "Reference price" : "Live Store Listing";
-
-  const productLink = p.url
-    ? `<a class="card__link" href="${p.url}" target="_blank" rel="noreferrer">Check at Delhi Duty Free <span aria-hidden="true">↗</span></a>`
-    : "";
-
-  let ribbonHTML = "";
-  if (isExclusive) {
-    ribbonHTML = `<div class="ribbon ribbon--exclusive">✈️ EXCLUSIVE</div>`;
-  } else if (hot) {
-    ribbonHTML = `<div class="ribbon">🔥 TOP DEAL</div>`;
-  }
-
-  let changeHTML = "";
-  if (p.priceChange < 0) {
-    changeHTML = `<span class="change change--down">▼ ${rupees(-p.priceChange)} cheaper than last check</span>`;
-  } else if (p.priceChange > 0) {
-    changeHTML = `<span class="change change--up">▲ ${rupees(p.priceChange)} costlier than last check</span>`;
-  }
-
-  const marketPriceHTML = p.hasMarket
-    ? `<div class="price price--mkt">
-         <span class="price__label">Market reference</span>
-         <span class="price__value strike">${rupees(p.market)}</span>
-       </div>`
-    : `<div class="price price--mkt">
-         <span class="price__label">Catalogue</span>
-         <span class="price__value">Live Airport</span>
-       </div>`;
-
-  const barHTML = p.hasMarket
-    ? `<div class="bar" title="${Math.round(p.savingsPct)}% cheaper than market">
-         <div class="bar__fill bar__fill--${tier.cls}" style="width:${Math.min(100, safeSavingsPct * 2.5)}%"></div>
-       </div>`
-    : `<div class="bar" title="Duty Free Official Listing">
-         <div class="bar__fill" style="width:100%; background:#d5eee2;"></div>
-       </div>`;
-
-  return `
-    <article class="card ${isExclusive ? "card--hot" : hot ? "card--hot" : ""}">
-      ${ribbonHTML}
-      <div class="card__top">
-        <span class="card__emoji">${p.emoji}</span>
-        <span class="badge badge--${tier.cls}" title="Deal Score">${p.hasMarket ? p.dealScore : "Live"}</span>
-      </div>
-      <h3 class="card__name">${p.name}</h3>
-      <p class="card__meta">${p.brand ? p.brand + ' · ' : ''}${p.size || '1 unit'}</p>
-
-      <div class="prices">
-        <div class="price price--df">
-          <span class="price__label">Duty Free</span>
-          <span class="price__value">${rupees(p.dutyFree)}</span>
-        </div>
-        ${marketPriceHTML}
-      </div>
-
-      ${barHTML}
-
-      <div class="card__foot">
-        <span class="save ${p.hasMarket && p.savings < 0 ? "save--negative" : ""}">${savingsLabel}</span>
-        <span class="tier tier--${tier.cls}">${p.hasMarket ? tier.label : "Available"}</span>
-      </div>
-      <div class="card__source">
-        <span>${p.marketSource || "Delhi Duty Free Live Catalog"}</span>
-        ${sourceLink}
-      </div>
-      ${changeHTML}
-      ${productLink}
-    </article>
-  `;
+function rupees(value) {
+  return Number.isFinite(value)
+    ? "₹" + value.toLocaleString("en-IN", { maximumFractionDigits: 0 })
+    : "—";
 }
 
-// ---- 7. Apply search + category + sort, then draw the current page ----
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  })[char]);
+}
+
+function safeURL(value) {
+  try {
+    const url = new URL(value);
+    return ["https:", "http:"].includes(url.protocol) ? escapeHTML(url.href) : "";
+  } catch {
+    return "";
+  }
+}
+
+function timeAgo(isoString) {
+  const then = new Date(isoString).getTime();
+  if (!Number.isFinite(then)) return "date unavailable";
+  const minutes = Math.max(0, Math.floor((Date.now() - then) / 60000));
+  if (minutes < 1) return "just now";
+  if (minutes < 60) return `${minutes} min ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
+  const days = Math.floor(hours / 24);
+  return `${days} ${days === 1 ? "day" : "days"} ago`;
+}
+
+function withStats(product) {
+  const dutyFree = Number(product.dutyFree);
+  const market = Number(product.market);
+  const hasMarket = Number.isFinite(market) && market > 0
+    && Number.isFinite(dutyFree) && dutyFree > 0;
+  const savings = hasMarket ? market - dutyFree : 0;
+  const savingsPct = hasMarket ? savings / market * 100 : 0;
+  const dealScore = hasMarket
+    ? Math.min(100, Math.max(0, Math.round(savingsPct * 2.5)))
+    : null;
+  const previous = Number(product.previousDutyFree);
+  const priceChange = Number.isFinite(previous) && previous > 0 ? dutyFree - previous : 0;
+  return { ...product, dutyFree, market, hasMarket, savings, savingsPct, dealScore, priceChange };
+}
+
+function scoreTier(score) {
+  if (score === null) return { label: "Not compared", cls: "okay" };
+  if (score >= 80) return { label: "Great deal", cls: "great" };
+  if (score >= 60) return { label: "Good deal", cls: "good" };
+  return { label: "Small saving", cls: "okay" };
+}
+
+function cardHTML(p) {
+  let tier = scoreTier(p.dealScore);
+  if (p.hasMarket && p.savings < 0) tier = { label: "Lower in market", cls: "negative" };
+  if (p.hasMarket && p.savings === 0) tier = { label: "Same price", cls: "okay" };
+  const hot = p.hasMarket && p.dealScore >= HOT_SCORE;
+  const marketURL = p.hasMarket ? safeURL(p.marketSourceUrl) : "";
+  const productURL = safeURL(p.url);
+  const savingsLabel = !p.hasMarket ? "Market reference unavailable"
+    : p.savings > 0 ? `Save ${rupees(p.savings)} (${Math.round(p.savingsPct)}%)`
+    : p.savings < 0 ? `${rupees(-p.savings)} more at Duty Free`
+    : "No price difference";
+  const ribbon = p.isExclusive
+    ? '<div class="ribbon ribbon--exclusive">✈ Airport exclusive</div>'
+    : hot ? '<div class="ribbon">✦ Top deal</div>' : "";
+  const change = p.priceChange === 0 ? ""
+    : `<span class="change change--${p.priceChange < 0 ? "down" : "up"}">${p.priceChange < 0 ? "↓" : "↑"} ${rupees(Math.abs(p.priceChange))} ${p.priceChange < 0 ? "less" : "more"} than last check</span>`;
+  const bar = p.hasMarket
+    ? `<div class="bar" role="img" aria-label="Deal score: ${p.dealScore} out of 100"><div class="bar__fill bar__fill--${tier.cls}" style="width:${p.dealScore}%"></div></div>`
+    : '<div class="bar bar--unrated" aria-hidden="true"></div>';
+  const source = p.hasMarket ? p.marketSource || "Market reference" : "Delhi Duty Free catalogue";
+  return `<article class="card${hot ? " card--hot" : ""}">
+    <div class="card__ribbon-slot">${ribbon}</div>
+    <div class="card__top">
+      <span class="card__emoji" aria-hidden="true">${escapeHTML(p.emoji || "✦")}</span>
+      <span class="badge badge--${tier.cls}" title="${p.hasMarket ? "Deal score out of 100, based on the market reference" : "No market reference available"}">${p.hasMarket ? `<span class="sr-only">Deal score </span>${p.dealScore}<small>/100</small>` : "Unrated"}</span>
+    </div>
+    <h3 class="card__name">${escapeHTML(p.name)}</h3>
+    <p class="card__meta">${escapeHTML([p.brand, p.size || "1 unit"].filter(Boolean).join(" · "))}</p>
+    <div class="prices">
+      <div class="price price--df"><span class="price__label">Duty Free</span><span class="price__value">${rupees(p.dutyFree)}</span></div>
+      <div class="price price--mkt"><span class="price__label">Market ref.</span><span class="price__value${p.hasMarket ? "" : " price__value--missing"}">${p.hasMarket ? rupees(p.market) : "Not available"}</span></div>
+    </div>
+    ${bar}
+    <div class="card__foot">
+      <span class="save${!p.hasMarket ? " save--neutral" : p.savings < 0 ? " save--negative" : ""}">${savingsLabel}</span>
+      ${p.hasMarket ? `<span class="tier tier--${tier.cls}">${tier.label}</span>` : ""}
+    </div>
+    <div class="card__bottom">
+      <div class="card__source"><span title="${escapeHTML(source)}">${escapeHTML(source)}</span>${marketURL ? `<a href="${marketURL}" target="_blank" rel="noopener noreferrer" aria-label="View market source for ${escapeHTML(p.name)}">View source ↗</a>` : ""}</div>
+      ${change}
+      ${p.needsVerification ? '<p class="card__notice">Market reference needs verification.</p>' : ""}
+      ${productURL ? `<a class="card__link" href="${productURL}" target="_blank" rel="noopener noreferrer" aria-label="Check ${escapeHTML(p.name)} at Delhi Duty Free">Check at Delhi Duty Free <span aria-hidden="true">↗</span></a>` : ""}
+    </div>
+  </article>`;
+}
+
+function matchesSearch(product) {
+  const words = searchText.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const text = [product.name, product.brand, product.category, product.size].join(" ").toLowerCase();
+  return words.every(word => text.includes(word));
+}
+
+function compareDeals(a, b) {
+  // Unrated listings follow actual comparisons, including comparisons with no saving.
+  return Number(b.hasMarket) - Number(a.hasMarket) || (b.dealScore ?? -1) - (a.dealScore ?? -1);
+}
+
 function render() {
-  let list = ALL.slice();
-
-  // filter by category
-  if (activeCategory !== "All") {
-    list = list.filter(p => p.category === activeCategory);
-  }
-
-  // filter by search (matches name or brand)
-  if (searchText.trim() !== "") {
-    const q = searchText.toLowerCase();
-    list = list.filter(p =>
-      p.name.toLowerCase().includes(q) || (p.brand && p.brand.toLowerCase().includes(q))
-    );
-  }
-
-  // sort
-  if (sortMode === "score")   list.sort((a, b) => b.dealScore - a.dealScore);
-  if (sortMode === "savings") list.sort((a, b) => b.savings - a.savings);
-  if (sortMode === "price")   list.sort((a, b) => a.dutyFree - b.dutyFree);
-
+  const searched = ALL.filter(matchesSearch);
+  const list = searched.filter(p => activeCategory === "All" || p.category === activeCategory);
+  if (sortMode === "score") list.sort(compareDeals);
+  if (sortMode === "savings") list.sort((a, b) => Number(b.hasMarket) - Number(a.hasMarket) || b.savings - a.savings);
+  if (sortMode === "price") list.sort((a, b) => a.dutyFree - b.dutyFree);
   filteredList = list;
-
-  // clamp the page in case a filter shrank the list under our feet
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-  if (currentPage > totalPages) currentPage = totalPages;
-  if (currentPage < 1) currentPage = 1;
-
-  // draw the cards for this page only
+  currentPage = Math.max(1, Math.min(currentPage, totalPages));
   const start = (currentPage - 1) * PAGE_SIZE;
   const pageItems = list.slice(start, start + PAGE_SIZE);
-
   const grid = document.getElementById("grid");
-  if (list.length === 0) {
-    grid.innerHTML = `
-      <div class="empty">
-        <p>😕 Nothing matches "${searchText}".</p>
-        <button class="chip" onclick="clearSearch()">Clear search</button>
-      </div>`;
+  if (!list.length) {
+    const query = searchText.trim();
+    grid.innerHTML = `<div class="empty">
+      <span class="empty__icon" aria-hidden="true">⌕</span>
+      <h3>${ALL.length ? "No products found" : "The catalogue is unavailable"}</h3>
+      <p>${!ALL.length ? "We couldn’t load the price snapshot. Please reload the page to try again."
+        : query ? `Nothing matches “${escapeHTML(query)}”${activeCategory === "All" ? "" : ` in ${escapeHTML(activeCategory)}`}. Try another search or reset your filters.`
+        : `There are no products in ${escapeHTML(activeCategory)}. Try another category.`}</p>
+      ${ALL.length ? '<button class="button button--small" data-reset-filters>Reset filters</button>' : '<button class="button button--small" data-reload>Reload page</button>'}
+    </div>`;
   } else {
     grid.innerHTML = pageItems.map(cardHTML).join("");
   }
-
   renderRange(list.length, start, pageItems.length);
   buildPager(totalPages);
-
-  // headline stats describe the whole filtered set, not just this page
-  const totalSave = list.reduce((sum, p) => sum + (p.hasMarket ? Math.max(0, p.savings) : 0), 0);
-  const best = list.length ? list.reduce((a, b) => (b.dealScore > a.dealScore ? b : a)) : null;
-  document.getElementById("count").textContent = list.length;
-  document.getElementById("totalSave").textContent = rupees(totalSave);
-  document.getElementById("bestDeal").textContent = best ? best.name : "—";
+  updateCategoryButtons(searched);
+  document.getElementById("clearSearch").hidden = searchText.length === 0;
+  document.getElementById("resetFilters").hidden = !searchText && activeCategory === "All" && sortMode === "score";
+  const compared = list.filter(p => p.hasMarket);
+  const totalSave = compared.reduce((sum, p) => sum + Math.max(0, p.savings), 0);
+  const best = compared.filter(p => p.savings > 0).sort(compareDeals)[0];
+  document.getElementById("count").textContent = list.length.toLocaleString("en-IN");
+  document.getElementById("totalSave").textContent = compared.length ? rupees(totalSave) : "—";
+  const bestEl = document.getElementById("bestDeal");
+  bestEl.textContent = best ? best.name : "No saving to compare";
+  bestEl.title = best ? best.name : "No positive savings against a market reference in this selection";
 }
 
-// ---- 7b. "Showing 1–24 of 384 products, page 1 of 16" ----
 function renderRange(total, start, shown) {
-  const el = document.getElementById("showrange");
-  if (!el) return;
-  if (total === 0) { el.textContent = ""; return; }
-  const last = start + shown;
-  el.textContent = `Showing ${start + 1}–${last} of ${total.toLocaleString("en-IN")} products`;
+  const label = total === 1 ? "product" : "products";
+  document.getElementById("showrange").textContent = total
+    ? `Showing ${start + 1}–${start + shown} of ${total.toLocaleString("en-IN")} ${label}`
+    : "No products to show";
 }
 
-// ---- 7c. Numbered pager with a window around the current page ----
 function pageNumbers(totalPages, current) {
-  if (totalPages <= 7) {
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-  const first = 1;
-  const last = totalPages;
-  const from = Math.max(first + 1, current - 1);
-  const to = Math.min(last - 1, current + 1);
-  const out = [first];
-  if (from > first + 1) out.push("…");
-  for (let i = from; i <= to; i++) out.push(i);
-  if (to < last - 1) out.push("…");
-  out.push(last);
-  return out;
+  if (totalPages <= 5) return Array.from({ length: totalPages }, (_, i) => i + 1);
+  const from = Math.max(2, Math.min(current - 1, totalPages - 3));
+  const to = Math.min(totalPages - 1, Math.max(current + 1, 4));
+  const numbers = [1];
+  if (from > 2) numbers.push("…");
+  for (let page = from; page <= to; page++) numbers.push(page);
+  if (to < totalPages - 1) numbers.push("…");
+  numbers.push(totalPages);
+  return numbers;
 }
 
 function buildPager(totalPages) {
-  const el = document.getElementById("pager");
-  if (!el) return;
-
-  if (totalPages <= 1) { el.innerHTML = ""; return; }
-
-  const arrow = (label, page, aria, disabled) =>
-    `<button class="page__arrow" data-page="${page}" aria-label="${aria}"${disabled ? " disabled" : ""}>${label}</button>`;
-
-  const parts = [
+  const pager = document.getElementById("pager");
+  pager.hidden = totalPages <= 1;
+  if (totalPages <= 1) { pager.innerHTML = ""; return; }
+  const arrow = (label, page, name, disabled) => `<button type="button" class="page__arrow" data-page="${page}" aria-label="${name}"${disabled ? " disabled" : ""}>${label}</button>`;
+  pager.innerHTML = [
     arrow("‹", currentPage - 1, "Previous page", currentPage === 1),
-    ...pageNumbers(totalPages, currentPage).map(n =>
-      n === "…"
-        ? `<span class="page__gap" aria-hidden="true">…</span>`
-        : `<button class="page__num" data-page="${n}"${n === currentPage ? ' aria-current="page"' : ""} aria-label="Page ${n} of ${totalPages}">${n}</button>`
-    ),
+    ...pageNumbers(totalPages, currentPage).map(page => page === "…"
+      ? '<span class="page__gap" aria-hidden="true">…</span>'
+      : `<button type="button" data-page="${page}"${page === currentPage ? ' aria-current="page"' : ""} aria-label="Page ${page} of ${totalPages}">${page}</button>`),
     arrow("›", currentPage + 1, "Next page", currentPage === totalPages),
-  ];
-
-  el.innerHTML = parts.join("");
+  ].join("");
 }
 
-function gotoPage(n) {
+function gotoPage(page) {
+  if (!Number.isFinite(page)) return;
   const totalPages = Math.max(1, Math.ceil(filteredList.length / PAGE_SIZE));
-  const target = Math.min(Math.max(1, n), totalPages);
+  const target = Math.min(Math.max(1, Math.trunc(page)), totalPages);
   if (target === currentPage) return;
   currentPage = target;
   render();
   scrollToControls();
+  document.getElementById("showrange").focus({ preventScroll: true });
 }
 
-// Put the first row of results back under the sticky toolbar.
 function scrollToControls() {
   const toolbar = document.getElementById("toolbar");
-  if (!toolbar) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const gridTop = window.scrollY + document.getElementById("grid").getBoundingClientRect().top;
-  const top = Math.max(0, gridTop - toolbar.offsetHeight - 24);
-  window.scrollTo({ top, behavior: reduce ? "auto" : "smooth" });
+  const grid = document.getElementById("grid");
+  if (!toolbar || !grid) return;
+  const top = Math.max(0, window.scrollY + grid.getBoundingClientRect().top - toolbar.offsetHeight - 20);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top, behavior: reduceMotion ? "instant" : "smooth" });
 }
-
-document.getElementById("pager").addEventListener("click", (e) => {
-  const btn = e.target.closest("button[data-page]");
-  if (!btn || btn.disabled) return;
-  gotoPage(Number(btn.dataset.page));
-});
 
 function clearSearch() {
   searchText = "";
   document.getElementById("search").value = "";
   currentPage = 1;
   render();
+  document.getElementById("search").focus();
 }
 
-// ---- 8. Build category buttons (with product counts) ----
-function buildCategoryButtons() {
-  const cats = ["All", ...new Set(ALL.map(p => p.category))];
-  const wrap = document.getElementById("categories");
-  wrap.innerHTML = cats.map(c => {
-    const count = c === "All" ? ALL.length : ALL.filter(p => p.category === c).length;
-    return `<button class="chip ${c === activeCategory ? "chip--on" : ""}" data-cat="${c}">
-              ${c} <span class="chip__count">${count}</span>
-            </button>`;
-  }).join("");
+function resetFilters() {
+  activeCategory = "All";
+  searchText = "";
+  sortMode = "score";
+  currentPage = 1;
+  document.getElementById("search").value = "";
+  document.getElementById("sort").value = "score";
+  render();
+  document.getElementById("search").focus();
+}
 
-  wrap.querySelectorAll(".chip").forEach(btn => {
-    btn.addEventListener("click", () => {
-      activeCategory = btn.dataset.cat;
-      buildCategoryButtons();
-      render();
-    });
+function buildCategoryButtons() {
+  const categories = ["All", ...new Set(ALL.map(p => p.category))];
+  document.getElementById("categories").innerHTML = categories.map(category =>
+    `<button type="button" class="chip" data-cat="${escapeHTML(category)}" aria-pressed="false">${escapeHTML(category)} <span class="chip__count"></span></button>`
+  ).join("");
+}
+
+function updateCategoryButtons(searched) {
+  document.querySelectorAll("#categories .chip").forEach(button => {
+    const category = button.dataset.cat;
+    const count = category === "All" ? searched.length : searched.filter(p => p.category === category).length;
+    button.querySelector(".chip__count").textContent = count.toLocaleString("en-IN");
+    button.setAttribute("aria-pressed", String(category === activeCategory));
+    button.classList.toggle("chip--on", category === activeCategory);
   });
 }
 
-// ---- 9. Show data freshness in the header ----
 function showFreshness() {
-  const el = document.getElementById("updated");
-  const live = typeof DATA_SOURCE !== "undefined" && DATA_SOURCE === "live";
-  el.innerHTML = live
-    ? `🟢 Live prices · updated ${timeAgo(LAST_UPDATED)}`
-    : `🟡 Sample data · not live yet`;
+  const element = document.getElementById("updated");
+  const timestamp = typeof LAST_UPDATED !== "undefined" ? LAST_UPDATED : null;
+  const date = timestamp ? new Date(timestamp) : new Date(NaN);
+  const liveSource = typeof DATA_SOURCE !== "undefined" && DATA_SOURCE === "live";
+  element.classList.remove("updated--stale", "updated--recent");
+  if (!liveSource || !Number.isFinite(date.getTime())) {
+    element.classList.add("updated--stale");
+    element.textContent = liveSource ? "Price update date unavailable" : "Sample catalogue · prices are illustrative";
+    return;
+  }
+  const stale = Date.now() - date.getTime() > 48 * 60 * 60 * 1000;
+  element.classList.add(stale ? "updated--stale" : "updated--recent");
+  const dateLabel = date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Kolkata" });
+  element.innerHTML = `<span class="updated__date">Updated <time datetime="${escapeHTML(timestamp)}">${escapeHTML(dateLabel)}</time> · ${timeAgo(timestamp)}</span>${stale ? '<span class="updated__note">Older snapshot. Confirm current prices before buying.</span>' : ""}`;
+  element.title = date.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) + " IST";
 }
 
-// ---- 10. Wire up search box + sort dropdown ----
-document.getElementById("search").addEventListener("input", (e) => {
-  searchText = e.target.value;
-  render();
-});
-
-document.getElementById("sort").addEventListener("change", (e) => {
-  sortMode = e.target.value;
-  render();
-});
-
-// ---- 11. Go! ----
 function initDealRadar() {
-  ALL = Array.isArray(PRODUCTS) ? PRODUCTS.map(withStats) : [];
+  ALL = typeof PRODUCTS !== "undefined" && Array.isArray(PRODUCTS)
+    ? PRODUCTS.map(withStats).filter(p => Number.isFinite(p.dutyFree) && p.dutyFree > 0)
+    : [];
   buildCategoryButtons();
   showFreshness();
   render();
 }
 
-// Wait for data.js to load
-if (typeof PRODUCTS !== "undefined") {
-  initDealRadar();
-} else {
-  // Fallback if data.js loads after app.js
-  window.addEventListener("load", initDealRadar);
-}
+// About only needs the shared footer; dashboard controls are wired on the catalogue page.
+const yearElement = document.getElementById("year");
+if (yearElement) yearElement.textContent = new Date().getFullYear();
 
-document.getElementById("year").textContent = new Date().getFullYear();
+if (document.getElementById("grid")) {
+  document.getElementById("search").addEventListener("input", event => {
+    searchText = event.target.value;
+    currentPage = 1;
+    render();
+  });
+  document.getElementById("sort").addEventListener("change", event => {
+    sortMode = event.target.value;
+    currentPage = 1;
+    render();
+  });
+  document.getElementById("categories").addEventListener("click", event => {
+    const button = event.target.closest("button[data-cat]");
+    if (!button) return;
+    activeCategory = button.dataset.cat;
+    currentPage = 1;
+    render();
+  });
+  document.getElementById("pager").addEventListener("click", event => {
+    const button = event.target.closest("button[data-page]");
+    if (button && !button.disabled) gotoPage(Number(button.dataset.page));
+  });
+  document.getElementById("clearSearch").addEventListener("click", clearSearch);
+  document.getElementById("resetFilters").addEventListener("click", resetFilters);
+  document.getElementById("grid").addEventListener("click", event => {
+    if (event.target.closest("[data-reset-filters]")) resetFilters();
+    if (event.target.closest("[data-reload]")) window.location.reload();
+  });
+  initDealRadar();
+}
